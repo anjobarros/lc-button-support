@@ -11,18 +11,20 @@ export default function save( { attributes } ) {
 		isOutline,
         size,
         styleVariant,
+        primaryColor,
         isDisabled
     } = attributes;
 
 	const blockProps = useBlockProps.save( {
-        className: [
-            'lc-button',
-            `lc-button--${ size }`,
-            styleVariant ? `lc-button--${ styleVariant }` : '',
-            isOutline ? 'is-outline' : 'is-solid',
-            isFullWidth ? 'is-full' : ''
-        ].filter( Boolean ).join( ' ' ),
-    } );
+		className: [
+			'lc-button',
+			`lc-button--${ size }`,
+			styleVariant ? `lc-button--${ styleVariant }` : '',
+			styleVariant === 'primary' && primaryColor ? `lc-button--primary-${ primaryColor }` : '',
+			isOutline ? 'is-outline' : 'is-solid',
+			isFullWidth ? 'is-full' : ''
+		].filter( Boolean ).join( ' ' ),
+	} );
 
 	const rel = [
 		opensInNewTab ? 'noopener' : null,

@@ -73,6 +73,10 @@
     "isDisabled": {
       "type": "boolean",
       "default": false
+    },
+    "primaryColor": {
+      "type": "string",
+      "default": "red"
     }
   },
   "styles": [

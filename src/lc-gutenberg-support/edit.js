@@ -14,18 +14,19 @@ import {
 } from '@wordpress/components';
 
 export default function Edit( props ) {
-	const { attributes, setAttributes, className } = props;
-	const {
-		text,
-		url,
+    const { attributes, setAttributes, className } = props;
+    const {
+        text,
+        url,
 		opensInNewTab,
 		relNoFollow,
 		relSponsored,
 		isFullWidth,
-		isOutline,
+        isOutline,
         size,
         styleVariant,
-		} = attributes;
+        primaryColor,
+    } = attributes;
 
 	// Keep our `styleVariant` attribute in sync with the selected block style.
 	useEffect( () => {
@@ -55,6 +56,7 @@ export default function Edit( props ) {
             'lc-button',
             `lc-button--${ size }`,
             styleVariant ? `lc-button--${ styleVariant }` : '',
+            styleVariant === 'primary' && primaryColor ? `lc-button--primary-${ primaryColor }` : '',
             isOutline ? 'is-outline' : 'is-solid',
             isFullWidth ? 'is-full' : ''
         ].filter( Boolean ).join( ' ' ),
@@ -100,16 +102,28 @@ export default function Edit( props ) {
 
                     
 
-					<SelectControl
-						label={ __( 'Size', 'limecuda' ) }
-						value={ size }
-						options={ [
-							{ label: 'Small', value: 'sm' },
-							{ label: 'Medium', value: 'md' },
-							{ label: 'Large', value: 'lg' },
-						] }
-						onChange={ ( val ) => setAttributes( { size: val } ) }
-					/>
+                    <SelectControl
+                        label={ __( 'Size', 'limecuda' ) }
+                        value={ size }
+                        options={ [
+                            { label: 'Small', value: 'sm' },
+                            { label: 'Medium', value: 'md' },
+                            { label: 'Large', value: 'lg' },
+                        ] }
+                        onChange={ ( val ) => setAttributes( { size: val } ) }
+                    />
+
+                    { styleVariant === 'primary' && (
+                        <SelectControl
+                            label={ __( 'Primary Options', 'limecuda' ) }
+                            value={ primaryColor }
+                            options={ [
+                                { label: __( 'Red', 'limecuda' ), value: 'red' },
+                                { label: __( 'Blue', 'limecuda' ), value: 'blue' },
+                            ] }
+                            onChange={ ( val ) => setAttributes( { primaryColor: val } ) }
+                        />
+                    ) }
 
                     
                     
