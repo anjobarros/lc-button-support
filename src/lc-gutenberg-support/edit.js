@@ -10,10 +10,9 @@ import { useEffect } from '@wordpress/element';
 import IconPicker from './icon-picker';
 import { renderIcon } from './icons';
 import {
-	PanelBody,
-	ToggleControl,
-	SelectControl,
-	__experimentalToolsPanel as ToolsPanel
+    PanelBody,
+    ToggleControl,
+    SelectControl
 } from '@wordpress/components';
 
 export default function Edit( { attributes, setAttributes } ) {
@@ -101,17 +100,7 @@ export default function Edit( { attributes, setAttributes } ) {
 						onChange={ ( v ) => setAttributes( { relSponsored: v } ) }
 					/>
 
-					<SelectControl
-						label={ __( 'Appearance', 'limecuda' ) }
-						value={ styleVariant }
-						options={ [
-							{ label: __( 'Primary', 'limecuda' ), value: 'primary' },
-							{ label: __( 'Secondary', 'limecuda' ), value: 'secondary' },
-							{ label: __( 'Tertiary', 'limecuda' ), value: 'tertiary' },
-							{ label: __( 'Link', 'limecuda' ), value: 'link' },
-						] }
-						onChange={ ( val ) => setAttributes( { styleVariant: val } ) }
-					/>
+                    
 
 					<SelectControl
 						label={ __( 'Size', 'limecuda' ) }
@@ -158,8 +147,7 @@ export default function Edit( { attributes, setAttributes } ) {
 					/>
 				</PanelBody>
 
-				{/* Empty tools panel to keep sidebar clean */}
-				<ToolsPanel label={ __( 'Locked UI', 'limecuda' ) } />
+                
 			</InspectorControls>
 
 			<div { ...blockProps }>
