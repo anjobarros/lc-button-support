@@ -28,34 +28,35 @@ export default function Edit( props ) {
         primaryColor,
     } = attributes;
 
+    // Derive current style from wrapper classes (Styles panel),
+    // defaulting to 'primary' when no is-style-* present.
+    const rawStyle = className?.match(/is-style-([\w-]+)/)?.[1] || 'primary';
+    const migrate = ( val ) => {
+        if ( val === 'style-1' ) return 'primary';
+        if ( val === 'style-2' ) return 'secondary';
+        if ( val === 'style-3' ) return 'tertiary';
+        if ( val === 'link' ) return 'outline';
+        return val;
+    };
+    const currentStyle = migrate( rawStyle );
+
     const blockProps = useBlockProps( {
         className: [
             'lc-button',
             `lc-button--${ size }`,
-            styleVariant ? `lc-button--${ styleVariant }` : '',
-            styleVariant === 'primary' && primaryColor ? `lc-button--primary-${ primaryColor }` : '',
+            currentStyle ? `lc-button--${ currentStyle }` : '',
+            currentStyle === 'primary' && primaryColor ? `lc-button--primary-${ primaryColor }` : '',
             isOutline ? 'is-outline' : 'is-solid',
             isFullWidth ? 'is-full' : ''
         ].filter( Boolean ).join( ' ' ),
     } );
 
-    // Keep our `styleVariant` in sync with the Styles panel.
-    // Detect from the computed wrapper classes (which include is-style-*).
+    // Keep attribute in sync so save() gets correct class.
     useEffect( () => {
-        const m = blockProps?.className?.match( /is-style-([\w-]+)/ );
-        const raw = m?.[ 1 ];
-        const migrate = ( val ) => {
-            if ( val === 'style-1' ) return 'primary';
-            if ( val === 'style-2' ) return 'secondary';
-            if ( val === 'style-3' ) return 'tertiary';
-            if ( val === 'link' ) return 'outline';
-            return val;
-        };
-        const next = raw ? migrate( raw ) : 'primary';
-        if ( next && next !== styleVariant ) {
-            setAttributes( { styleVariant: next } );
+        if ( currentStyle && currentStyle !== styleVariant ) {
+            setAttributes( { styleVariant: currentStyle } );
         }
-    }, [ blockProps?.className ] );
+    }, [ currentStyle ] );
 
 	const rel = [
 		opensInNewTab ? 'noopener' : null,
@@ -132,7 +133,7 @@ export default function Edit( props ) {
 					/>
 				</PanelBody>
 
-                { styleVariant === 'primary' && (
+                { currentStyle === 'primary' && (
                     <PanelBody title={ __( 'Primary Options', 'limecuda' ) } initialOpen={ false }>
                         <SelectControl
                             label={ __( 'Color', 'limecuda' ) }
