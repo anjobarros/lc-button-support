@@ -24,6 +24,8 @@ export default function Edit( { attributes, setAttributes } ) {
 		isFullWidth,
 		isOutline,
 		size,
+		icon,
+		iconPosition,
 		styleVariant,
 		/**
 		 * WordPress injects `className` by default (e.g. `is-style-style-2`).
@@ -56,6 +58,36 @@ export default function Edit( { attributes, setAttributes } ) {
 		relNoFollow ? 'nofollow' : null,
 		relSponsored ? 'sponsored' : null
 	].filter( Boolean ).join( ' ' ) || undefined;
+
+	const renderIcon = ( name ) => {
+		if ( ! name || name === 'none' ) return null;
+		switch ( name ) {
+			case 'arrow-right':
+				return (
+					<svg className="lc-button__icon" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+						<path d="M5 12h14" />
+						<path d="M13 5l7 7-7 7" />
+					</svg>
+				);
+			case 'arrow-left':
+				return (
+					<svg className="lc-button__icon" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+						<path d="M19 12H5" />
+						<path d="M11 19L4 12l7-7" />
+					</svg>
+				);
+			case 'external':
+				return (
+					<svg className="lc-button__icon" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+						<path d="M14 3h7v7" />
+						<path d="M21 3l-9 9" />
+						<path d="M14 13v6H4V10h6" />
+					</svg>
+				);
+			default:
+				return null;
+		}
+	};
 
 	return (
 		<>
@@ -98,6 +130,30 @@ export default function Edit( { attributes, setAttributes } ) {
 						onChange={ ( val ) => setAttributes( { size: val } ) }
 					/>
 
+					<SelectControl
+						label={ __( 'Icon', 'limecuda' ) }
+						value={ icon }
+						options={ [
+							{ label: __( 'None', 'limecuda' ), value: 'none' },
+							{ label: __( 'Arrow Right', 'limecuda' ), value: 'arrow-right' },
+							{ label: __( 'Arrow Left', 'limecuda' ), value: 'arrow-left' },
+							{ label: __( 'External Link', 'limecuda' ), value: 'external' },
+						] }
+						onChange={ ( val ) => setAttributes( { icon: val } ) }
+					/>
+
+					{ icon !== 'none' && (
+						<SelectControl
+							label={ __( 'Icon position', 'limecuda' ) }
+							value={ iconPosition }
+							options={ [
+								{ label: __( 'Left', 'limecuda' ), value: 'left' },
+								{ label: __( 'Right', 'limecuda' ), value: 'right' },
+							] }
+							onChange={ ( val ) => setAttributes( { iconPosition: val } ) }
+						/>
+					) }
+
 					<ToggleControl
 						label={ __( 'Full width', 'limecuda' ) }
 						checked={ isFullWidth }
@@ -116,16 +172,18 @@ export default function Edit( { attributes, setAttributes } ) {
 			</InspectorControls>
 
 			<div { ...blockProps }>
-				<RichText
-					tagName="a"
-					placeholder={ __( 'Button text…', 'limecuda' ) }
-					value={ text }
-					onChange={ ( val ) => setAttributes( { text: val } ) }
-					allowedFormats={ [] }
-					href={ url || undefined }
-					rel={ rel }
-					target={ opensInNewTab ? '_blank' : undefined }
-				/>
+				<a href={ url || undefined } rel={ rel } target={ opensInNewTab ? '_blank' : undefined }>
+					{ icon !== 'none' && iconPosition === 'left' && renderIcon( icon ) }
+					<RichText
+						tagName="span"
+						className="lc-button__label"
+						placeholder={ __( 'Button text…', 'limecuda' ) }
+						value={ text }
+						onChange={ ( val ) => setAttributes( { text: val } ) }
+						allowedFormats={ [] }
+					/>
+					{ icon !== 'none' && iconPosition === 'right' && renderIcon( icon ) }
+				</a>
 			</div>
 		</>
 	);

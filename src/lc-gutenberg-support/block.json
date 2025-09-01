@@ -62,6 +62,14 @@
 		"size": {
 			"type": "string",
 			"default": "md"
+		},
+		"icon": {
+			"type": "string",
+			"default": "none"
+		},
+		"iconPosition": {
+			"type": "string",
+			"default": "right"
 		}
 	},
 	"styles": [

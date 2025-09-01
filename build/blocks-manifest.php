@@ -72,6 +72,14 @@ return array(
 			'size' => array(
 				'type' => 'string',
 				'default' => 'md'
+			),
+			'icon' => array(
+				'type' => 'string',
+				'default' => 'none'
+			),
+			'iconPosition' => array(
+				'type' => 'string',
+				'default' => 'right'
 			)
 		),
 		'styles' => array(
