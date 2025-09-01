@@ -1,55 +1,83 @@
 === LC Gutenberg Support ===
-Contributors:      The WordPress Contributors
-Tags:              block
+Contributors:      LimeCuda
+Tags:              block, gutenberg, button, styles
 Tested up to:      6.7
 Stable tag:        0.1.0
 License:           GPL-2.0-or-later
 License URI:       https://www.gnu.org/licenses/gpl-2.0.html
 
-Example block scaffolded with Create Block tool.
+Opinionated Gutenberg block(s) with a focus on a resilient, consistent Button component.
 
 == Description ==
 
-This is the long description. No limit, and you can use Markdown (as well as in the following sections).
+Adds an LC Button block (`limecuda/button`) with locked styling and a few safe options your content team can use without breaking consistency.
 
-For backwards compatibility, if this section is missing, the full length of the short description will be used, and
-Markdown parsed.
+Highlights:
+
+* Simple options: Size (sm/md/lg), Outline vs Solid, Full width.
+* Style presets: Style 1 (default), Style 2, Style 3.
+* Link controls: URL, open in new tab, rel=nofollow / rel=sponsored.
+* Frontend parity: the chosen style in the editor matches what you see on the site.
 
 == Installation ==
 
-This section describes how to install the plugin and get it working.
+There are two easy ways to install.
 
-e.g.
+1) Upload the zip in WP Admin (Plugins → Add New → Upload Plugin)
 
-1. Upload the plugin files to the `/wp-content/plugins/lc-gutenberg-support` directory, or install the plugin through the WordPress plugins screen directly.
-1. Activate the plugin through the 'Plugins' screen in WordPress
+* Download a release zip from GitHub, or make one locally with `npm run plugin-zip` from this plugin folder.
+* Upload the zip and activate.
 
+2) Copy the folder to your site
+
+* Copy `lc-gutenberg-support` into `wp-content/plugins/` on your site.
+* Activate “LC Gutenberg Support” in WP Admin → Plugins.
+
+Requirements: WordPress 6.7+, PHP 7.4+.
+
+== Usage ==
+
+1. In the editor, insert “LC Button”.
+2. Enter the button text and URL.
+3. In the sidebar:
+   * Styles: choose Style 1, 2, or 3. Your choice persists on save.
+   * Size: Small, Medium, Large.
+   * Full width: make the button span its container.
+   * Outline style: toggle between outline and solid.
+   * Link options: New tab, rel=nofollow, rel=sponsored.
+
+Tips:
+
+* Style 1 is the default and is applied even if WordPress doesn’t add a style class.
+* Changing the Style preset updates the saved markup so the frontend always matches the editor.
+
+== Development ==
+
+From the plugin folder (`wp-content/plugins/lc-gutenberg-support`):
+
+* `npm install` — install dev dependencies (needed only if you change the source).
+* `npm start` — run the build in watch mode while you edit files in `src/`.
+* `npm run build` — create a production build in `build/`.
+* `npm run plugin-zip` — create a distributable zip in the parent directory.
+
+This repository commits the `build/` output so sites can install the plugin without Node.
 
 == Frequently Asked Questions ==
 
-= A question that someone might have =
+= My button reverts to Style 1 when I reload =
 
-An answer to that question.
+That should now be fixed. The selected style is saved and reflected on the frontend and in the editor. If you migrated from an older version, re-select the style once and save.
 
-= What about foo bar? =
+= Can I add new style presets? =
 
-Answer to foo bar dilemma.
+Yes. Add a new style to `src/lc-gutenberg-support/style.scss` and register a style in `src/lc-gutenberg-support/block.json` under `styles`. Rebuild with `npm run build`.
 
 == Screenshots ==
 
-1. This screen shot description corresponds to screenshot-1.(png|jpg|jpeg|gif). Note that the screenshot is taken from
-the /assets directory or the directory that contains the stable readme.txt (tags or trunk). Screenshots in the /assets
-directory take precedence. For example, `/assets/screenshot-1.png` would win over `/tags/4.3/screenshot-1.png`
-(or jpg, jpeg, gif).
-2. This is the second screen shot
+1. Style presets in the editor sidebar.
+2. Solid and outline variations on the frontend.
 
 == Changelog ==
 
 = 0.1.0 =
-* Release
-
-== Arbitrary section ==
-
-You may provide arbitrary sections, in the same format as the ones above. This may be of use for extremely complicated
-plugins where more information needs to be conveyed that doesn't fit into the categories of "description" or
-"installation." Arbitrary sections will be shown below the built-in sections outlined above.
+* Initial release of LC Button block.
