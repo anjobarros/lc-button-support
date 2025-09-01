@@ -115,10 +115,18 @@ export default function Edit( props ) {
                         onChange={ ( val ) => setAttributes( { size: val } ) }
                     />
 
-                    { /* Additional basic settings above */ }
 
-                    
-                    
+                    { currentStyle === 'primary' && (
+                        <SelectControl
+                            label={ __( 'Primary Options', 'limecuda' ) }
+                            value={ primaryColor }
+                            options={ [
+                                { label: __( 'Red', 'limecuda' ), value: 'red' },
+                                { label: __( 'Blue', 'limecuda' ), value: 'blue' },
+                            ] }
+                            onChange={ ( val ) => setAttributes( { primaryColor: val } ) }
+                        />
+                    ) }
 
 					<ToggleControl
 						label={ __( 'Full width', 'limecuda' ) }
@@ -138,20 +146,6 @@ export default function Edit( props ) {
 						onChange={ ( v ) => setAttributes( { isDisabled: v } ) }
 					/>
 				</PanelBody>
-
-                { currentStyle === 'primary' && (
-                    <PanelBody title={ __( 'Primary Options', 'limecuda' ) } initialOpen={ false }>
-                        <SelectControl
-                            label={ __( 'Color', 'limecuda' ) }
-                            value={ primaryColor }
-                            options={ [
-                                { label: __( 'Red', 'limecuda' ), value: 'red' },
-                                { label: __( 'Blue', 'limecuda' ), value: 'blue' },
-                            ] }
-                            onChange={ ( val ) => setAttributes( { primaryColor: val } ) }
-                        />
-                    </PanelBody>
-                ) }
 
             </InspectorControls>
 
