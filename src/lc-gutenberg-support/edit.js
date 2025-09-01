@@ -7,6 +7,7 @@ import {
 	URLInput
 } from '@wordpress/block-editor';
 import { useEffect } from '@wordpress/element';
+import { useSelect } from '@wordpress/data';
 import {
     PanelBody,
     ToggleControl,
@@ -14,7 +15,7 @@ import {
 } from '@wordpress/components';
 
 export default function Edit( props ) {
-    const { attributes, setAttributes, className } = props;
+    const { attributes, setAttributes, className, clientId } = props;
     const {
         text,
         url,
@@ -28,9 +29,8 @@ export default function Edit( props ) {
         primaryColor,
     } = attributes;
 
-    // Derive current style from wrapper classes (Styles panel),
-    // defaulting to 'primary' when no is-style-* present.
-    const rawStyle = className?.match(/is-style-([\w-]+)/)?.[1] || 'primary';
+    // Derive current style from block wrapper classes via store
+    // (most reliable across renders). Default to 'primary'.
     const migrate = ( val ) => {
         if ( val === 'style-1' ) return 'primary';
         if ( val === 'style-2' ) return 'secondary';
@@ -38,7 +38,13 @@ export default function Edit( props ) {
         if ( val === 'link' ) return 'outline';
         return val;
     };
-    const currentStyle = migrate( rawStyle );
+    const currentStyle = useSelect( ( select ) => {
+        const { getBlockAttributes } = select( 'core/block-editor' );
+        const attrs = getBlockAttributes ? getBlockAttributes( clientId ) : null;
+        const cn = [ attrs?.className, className ].filter( Boolean ).join( ' ' );
+        const raw = cn.match( /is-style-([\w-]+)/ )?.[ 1 ] || 'primary';
+        return migrate( raw );
+    }, [ clientId, className ] );
 
     const blockProps = useBlockProps( {
         className: [
