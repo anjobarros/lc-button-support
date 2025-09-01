@@ -57,3 +57,95 @@ function limecuda_lc_gutenberg_support_block_init() {
 	}
 }
 add_action( 'init', 'limecuda_lc_gutenberg_support_block_init' );
+
+/**
+ * Transitional fix: ensure correct variant class from selected block style.
+ * This adjusts existing saved content that may contain lc-button--primary
+ * regardless of the style chosen. Once posts are re-saved, this is no-op.
+ */
+function limecuda_lc_button_render_fix( $block_content, $block ) {
+    if ( empty( $block_content ) || empty( $block ) || ! is_array( $block ) ) {
+        return $block_content;
+    }
+    if ( empty( $block['blockName'] ) || 'limecuda/button' !== $block['blockName'] ) {
+        return $block_content;
+    }
+
+    // Determine selected style from wrapper class in the rendered content.
+    $style = 'primary';
+    if ( preg_match( '/is-style-([a-z0-9_-]+)/i', $block_content, $m ) ) {
+        $style = strtolower( $m[1] );
+    }
+
+    // Normalize to supported variants.
+    $map = array(
+        'primary'     => 'primary',
+        'secondary'   => 'secondary',
+        'outline'     => 'outline',
+        'information' => 'information',
+        'style-1'     => 'primary',
+        'style-2'     => 'secondary',
+        'style-3'     => 'information',
+        'link'        => 'outline',
+        'tertiary'    => 'information',
+    );
+    $variant = isset( $map[ $style ] ) ? $map[ $style ] : $style;
+
+    // Prefer robust parsing with WP_HTML_Tag_Processor when available.
+    if ( class_exists( 'WP_HTML_Tag_Processor' ) ) {
+        $processor = new WP_HTML_Tag_Processor( $block_content );
+        if ( $processor->next_tag( array( 'tag_name' => 'div', 'class_name' => 'wp-block-limecuda-button' ) ) ) {
+            $class_attr = $processor->get_attribute( 'class' );
+            $classes    = ' ' . (string) $class_attr . ' ';
+
+            // Remove any old variant classes first.
+            $classes = preg_replace( '/\s+lc-button--(?:primary(?:-(?:red|blue))?|secondary|outline|information)\b/i', ' ', $classes );
+
+            // Append the correct variant class.
+            $classes .= ' lc-button--' . $variant;
+
+            // If primary, append color; default to 'red' when attribute is absent.
+            if ( 'primary' === $variant ) {
+                $color = isset( $block['attrs']['primaryColor'] ) && '' !== $block['attrs']['primaryColor']
+                    ? strtolower( (string) $block['attrs']['primaryColor'] )
+                    : 'red';
+                if ( ! in_array( $color, array( 'red', 'blue' ), true ) ) {
+                    $color = 'red';
+                }
+                $classes .= ' lc-button--primary-' . $color;
+            }
+
+            // Normalize whitespace.
+            $classes = trim( preg_replace( '/\s+/', ' ', $classes ) );
+            $processor->set_attribute( 'class', $classes );
+            return $processor->get_updated_html();
+        }
+        // If we didn't find the wrapper, just return original content.
+        return $block_content;
+    }
+
+    // Fallback regex approach if Tag Processor is not available.
+    $block_content = preg_replace_callback(
+        '/(<div\b[^>]*\bclass=")(.*?)("[^>]*>)/i',
+        function ( $m ) use ( $variant, $block ) {
+            $classes = ' ' . $m[2] . ' ';
+            $classes = preg_replace( '/\s+lc-button--(?:primary(?:-(?:red|blue))?|secondary|outline|information)\b/i', ' ', $classes );
+            $classes .= ' lc-button--' . $variant;
+            if ( 'primary' === $variant ) {
+                $color = isset( $block['attrs']['primaryColor'] ) && '' !== $block['attrs']['primaryColor']
+                    ? strtolower( (string) $block['attrs']['primaryColor'] )
+                    : 'red';
+                if ( ! in_array( $color, array( 'red', 'blue' ), true ) ) {
+                    $color = 'red';
+                }
+                $classes .= ' lc-button--primary-' . $color;
+            }
+            $classes = trim( preg_replace( '/\s+/', ' ', $classes ) );
+            return $m[1] . $classes . $m[3];
+        },
+        1
+    );
+
+    return $block_content;
+}
+add_filter( 'render_block', 'limecuda_lc_button_render_fix', 10, 2 );

@@ -1,5 +1,31 @@
 /* Basic front-end + editor shared styles for the LC Button.
    Intentionally minimal so design can start from scratch. */
+$lc-white-color: #ffffff;
+$lc-lightDark-color: #333333;
+// Primary Button Color
+$lc-primary-bg: #0073e6;
+$lc-primary-bg--hover: #045ab0;
+$lc-primary-bg-red: #d93025;
+$lc-primary-bg-red--hover: #b8160a;
+
+// Secondary Button Color
+$lc-secondary-bg: #333333;
+$lc-secondary-bg-hover: #000000;
+
+// Information Button Color
+$lc-info-bg: #777777;
+$lc-info-bg-hover: #333333;
+
+$lc-lightblue-color: #689cf6;
+
+// SPACING
+$lc-padding-small: 8px;
+$lc-padding-medium: 16px;
+$lc-padding-regular: 24px;
+
+// RADIUS
+$lc-radius-shape: 4px;
+
 
 
 .lc-button {
@@ -8,16 +34,79 @@
     align-items: center;
     justify-content: center;
     text-decoration: none;
-    font: inherit;
-    line-height: 1;
-    padding: .625rem 1rem; /* base spacing */
-    border-radius: .375rem; /* 6px */
-    border: 1px solid currentColor; /* simple outline */
-    background: transparent;
-    color: inherit;
+    font-size: 14px;
+    line-height: 1em;
+    padding: 13px $lc-padding-regular;
+    border-radius: $lc-radius-shape;
+    border-color: currentColor;
+    border-style: solid;
+    border-width: 1px;
+    background: $lc-lightDark-color;
+    color: $lc-white-color;
+    font-weight: bold;
   }
 
   /* Full width toggle retained */
   &.is-full a { display: flex; width: 100%; }
-}
 
+  &--primary{
+    &-red{
+      a {
+        background: $lc-primary-bg-red;
+        border-color: $lc-primary-bg-red;
+        &:hover {
+          background: $lc-primary-bg-red--hover;
+          border-color: $lc-primary-bg-red--hover;
+        }
+      }
+    }
+
+    &-blue{
+      a {
+        background: $lc-primary-bg;
+        border-color: $lc-primary-bg;
+        &:hover {
+          background: $lc-primary-bg--hover;
+          border-color: $lc-primary-bg--hover;
+        }
+      }
+    }
+
+  }
+
+  &--secondary{
+    a {
+      background: $lc-secondary-bg;
+      border-color: $lc-secondary-bg;
+      &:hover {
+        background: $lc-secondary-bg-hover;
+        border-color: $lc-secondary-bg-hover;
+      }
+    }
+  }
+
+  &--outline{
+    a {
+      background: transparent;
+      border-color: $lc-secondary-bg;
+      color: $lc-primary-bg;
+      &:hover {
+        border-color: $lc-primary-bg;
+      }
+    }
+  }
+
+  &--information{
+    a {
+      background: transparent;
+      border-color: $lc-info-bg;
+      color: $lc-info-bg;
+      &:hover {
+        border-color: $lc-info-bg-hover;
+        color: $lc-info-bg-hover;
+      }
+    }
+  }
+
+
+}

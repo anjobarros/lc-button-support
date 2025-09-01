@@ -14,7 +14,7 @@ import {
 } from '@wordpress/components';
 
 export default function Edit( props ) {
-    const { attributes, setAttributes, className } = props;
+    const { attributes, setAttributes } = props;
     const {
         text,
         url,
@@ -31,25 +31,35 @@ export default function Edit( props ) {
     // Derive current style strictly from the Styles panel (wrapper classes).
     // If no is-style-* class is present, treat as the default: 'primary'.
     const migrate = ( val ) => {
+        // Normalize various style slugs (including legacy) to the 4 supported variants
+        if ( val === 'primary' ) return 'primary';
+        if ( val === 'secondary' ) return 'secondary';
+        if ( val === 'outline' ) return 'outline';
+        if ( val === 'information' ) return 'information';
+        // Legacy mappings from prior style names
         if ( val === 'style-1' ) return 'primary';
         if ( val === 'style-2' ) return 'secondary';
-        if ( val === 'style-3' ) return 'tertiary';
+        if ( val === 'style-3' ) return 'information';
         if ( val === 'link' ) return 'outline';
+        if ( val === 'tertiary' ) return 'information';
         return val;
     };
-    const classStyle = className?.match( /is-style-([\w-]+)/ )?.[ 1 ] || null;
-    const currentStyle = migrate( classStyle || 'primary' );
+    // Read current wrapper classes (includes is-style-*)
+    const baseBlockProps = useBlockProps();
+    const classStyle = baseBlockProps?.className?.match( /is-style-([\w-]+)/ )?.[ 1 ] || null;
+    const currentStyle = migrate( classStyle || styleVariant || 'primary' );
 
-    const blockProps = useBlockProps( {
-        className: [
-            'lc-button',
-            `lc-button--${ size }`,
-            currentStyle ? `lc-button--${ currentStyle }` : '',
-            currentStyle === 'primary' && primaryColor ? `lc-button--primary-${ primaryColor }` : '',
-            isOutline ? 'is-outline' : 'is-solid',
-            isFullWidth ? 'is-full' : ''
-        ].filter( Boolean ).join( ' ' ),
-    } );
+    // Merge our classes with base block props
+    const mergedClassName = [
+        baseBlockProps.className,
+        'lc-button',
+        `lc-button--${ size }`,
+        currentStyle ? `lc-button--${ currentStyle }` : '',
+        currentStyle === 'primary' && primaryColor ? `lc-button--primary-${ primaryColor }` : '',
+        // Only keep supported modifiers; remove legacy is-solid/is-outline flags
+        isFullWidth ? 'is-full' : ''
+    ].filter( Boolean ).join( ' ' );
+    const blockProps = { ...baseBlockProps, className: mergedClassName };
 
     // Keep attribute in sync so save() gets correct class.
     useEffect( () => {
@@ -150,9 +160,11 @@ export default function Edit( props ) {
                     value={ text }
                     onChange={ ( val ) => setAttributes( { text: val } ) }
                     allowedFormats={ [] }
-                    href={ url || undefined }
+                    href={ attributes.isDisabled ? undefined : ( url || undefined ) }
                     rel={ rel }
-                    target={ opensInNewTab ? '_blank' : undefined }
+                    target={ attributes.isDisabled ? undefined : ( opensInNewTab ? '_blank' : undefined ) }
+                    aria-disabled={ attributes.isDisabled ? 'true' : undefined }
+                    tabIndex={ attributes.isDisabled ? -1 : undefined }
                 />
             </div>
 		</>

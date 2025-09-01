@@ -15,16 +15,32 @@ export default function save( { attributes } ) {
         isDisabled
     } = attributes;
 
-	const blockProps = useBlockProps.save( {
-		className: [
-			'lc-button',
-			`lc-button--${ size }`,
-			styleVariant ? `lc-button--${ styleVariant }` : '',
-			styleVariant === 'primary' && primaryColor ? `lc-button--primary-${ primaryColor }` : '',
-			isOutline ? 'is-outline' : 'is-solid',
-			isFullWidth ? 'is-full' : ''
-		].filter( Boolean ).join( ' ' ),
-	} );
+    // Normalize styleVariant to the supported set.
+    const normalizeVariant = (val) => {
+        if ( val === 'primary' ) return 'primary';
+        if ( val === 'secondary' ) return 'secondary';
+        if ( val === 'information' ) return 'information';
+        if ( val === 'outline' ) return 'outline';
+        // Legacy mappings from prior style names
+        if ( val === 'style-1' ) return 'primary';
+        if ( val === 'style-2' ) return 'secondary';
+        if ( val === 'style-3' ) return 'information';
+        if ( val === 'link' ) return 'outline';
+        if ( val === 'tertiary' ) return 'information';
+        return val;
+    };
+    const variant = normalizeVariant( styleVariant );
+
+    const blockProps = useBlockProps.save( {
+        className: [
+            'lc-button',
+            `lc-button--${ size }`,
+            variant ? `lc-button--${ variant }` : '',
+            variant === 'primary' && primaryColor ? `lc-button--primary-${ primaryColor }` : '',
+            // Remove legacy state flags; rely on lc-button--outline etc.
+            isFullWidth ? 'is-full' : ''
+        ].filter( Boolean ).join( ' ' ),
+    } );
 
 	const rel = [
 		opensInNewTab ? 'noopener' : null,
