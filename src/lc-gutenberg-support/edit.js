@@ -24,6 +24,7 @@ export default function Edit( { attributes, setAttributes } ) {
 		isOutline,
         size,
         styleVariant,
+        primaryColor,
 		/**
 		 * WordPress injects `className` by default (e.g. `is-style-style-2`).
 		 * We don't declare it in attributes but we can still read it here.
@@ -114,6 +115,18 @@ export default function Edit( { attributes, setAttributes } ) {
 						] }
 						onChange={ ( val ) => setAttributes( { size: val } ) }
 					/>
+
+					{ styleVariant === 'primary' && (
+						<SelectControl
+							label={ __( 'Primary Options', 'limecuda' ) }
+							value={ primaryColor }
+							options={ [
+								{ label: __( 'Red', 'limecuda' ), value: 'red' },
+								{ label: __( 'Blue', 'limecuda' ), value: 'blue' },
+							] }
+							onChange={ ( val ) => setAttributes( { primaryColor: val } ) }
+						/>
+					) }
                     
 
 					<ToggleControl
