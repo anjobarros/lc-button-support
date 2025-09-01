@@ -76,10 +76,6 @@ return array(
 			'isDisabled' => array(
 				'type' => 'boolean',
 				'default' => false
-			),
-			'primaryColor' => array(
-				'type' => 'string',
-				'default' => 'red'
 			)
 		),
 		'styles' => array(

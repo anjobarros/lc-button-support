@@ -22,9 +22,8 @@ export default function Edit( { attributes, setAttributes } ) {
 		relSponsored,
 		isFullWidth,
 		isOutline,
-	        size,
-	        styleVariant,
-	        primaryColor,
+        size,
+        styleVariant,
 		} = attributes;
 
 	// Keep our `styleVariant` attribute in sync with the selected block style.
@@ -50,16 +49,15 @@ export default function Edit( { attributes, setAttributes } ) {
 		}
 	}, [ className ] );
 
-	const blockProps = useBlockProps( {
-		className: [
-			'lc-button',
-			`lc-button--${ size }`,
-			styleVariant ? `lc-button--${ styleVariant }` : '',
-			styleVariant === 'primary' && primaryColor ? `lc-button--primary-${ primaryColor }` : '',
-			isOutline ? 'is-outline' : 'is-solid',
-			isFullWidth ? 'is-full' : ''
-		].filter( Boolean ).join( ' ' ),
-	} );
+    const blockProps = useBlockProps( {
+        className: [
+            'lc-button',
+            `lc-button--${ size }`,
+            styleVariant ? `lc-button--${ styleVariant }` : '',
+            isOutline ? 'is-outline' : 'is-solid',
+            isFullWidth ? 'is-full' : ''
+        ].filter( Boolean ).join( ' ' ),
+    } );
 
 	const rel = [
 		opensInNewTab ? 'noopener' : null,
@@ -112,17 +110,7 @@ export default function Edit( { attributes, setAttributes } ) {
 						onChange={ ( val ) => setAttributes( { size: val } ) }
 					/>
 
-					{ styleVariant === 'primary' && (
-						<SelectControl
-							label={ __( 'Primary Options', 'limecuda' ) }
-							value={ primaryColor }
-							options={ [
-								{ label: __( 'Red', 'limecuda' ), value: 'red' },
-								{ label: __( 'Blue', 'limecuda' ), value: 'blue' },
-							] }
-							onChange={ ( val ) => setAttributes( { primaryColor: val } ) }
-						/>
-					) }
+                    
                     
 
 					<ToggleControl

@@ -11,7 +11,6 @@ export default function save( { attributes } ) {
 		isOutline,
         size,
         styleVariant,
-        primaryColor,
         isDisabled
     } = attributes;
 
@@ -20,11 +19,10 @@ export default function save( { attributes } ) {
             'lc-button',
             `lc-button--${ size }`,
             styleVariant ? `lc-button--${ styleVariant }` : '',
-            styleVariant === 'primary' && primaryColor ? `lc-button--primary-${ primaryColor }` : '',
             isOutline ? 'is-outline' : 'is-solid',
             isFullWidth ? 'is-full' : ''
         ].filter( Boolean ).join( ' ' ),
-	} );
+    } );
 
 	const rel = [
 		opensInNewTab ? 'noopener' : null,
