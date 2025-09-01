@@ -13,7 +13,8 @@ export default function save( { attributes } ) {
 		size,
 		styleVariant,
 		icon,
-		iconPosition
+		iconPosition,
+		isDisabled
 	} = attributes;
 
 	const blockProps = useBlockProps.save( {
@@ -34,7 +35,13 @@ export default function save( { attributes } ) {
 
 	return (
 		<div { ...blockProps }>
-			<a href={ url || undefined } rel={ rel } target={ opensInNewTab ? '_blank' : undefined }>
+			<a
+				href={ isDisabled ? undefined : ( url || undefined ) }
+				rel={ rel }
+				target={ isDisabled ? undefined : ( opensInNewTab ? '_blank' : undefined ) }
+				aria-disabled={ isDisabled ? 'true' : undefined }
+				tabIndex={ isDisabled ? -1 : undefined }
+			>
 				{ icon !== 'none' && iconPosition === 'left' && renderIcon( icon ) }
 				<RichText.Content tagName="span" className="lc-button__label" value={ text } />
 				{ icon !== 'none' && iconPosition === 'right' && renderIcon( icon ) }

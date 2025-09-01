@@ -56,7 +56,7 @@
     },
     "styleVariant": {
       "type": "string",
-      "default": "style-1"
+      "default": "primary"
     },
     "isFullWidth": {
       "type": "boolean",
@@ -70,6 +70,10 @@
       "type": "string",
       "default": "md"
     },
+    "isDisabled": {
+      "type": "boolean",
+      "default": false
+    },
     "icon": {
       "type": "string",
       "default": "none"
@@ -81,17 +85,21 @@
   },
   "styles": [
     {
-      "name": "style-1",
-      "label": "Style 1",
+      "name": "primary",
+      "label": "Primary",
       "isDefault": true
     },
     {
-      "name": "style-2",
-      "label": "Style 2"
+      "name": "secondary",
+      "label": "Secondary"
     },
     {
-      "name": "style-3",
-      "label": "Style 3"
+      "name": "tertiary",
+      "label": "Tertiary"
+    },
+    {
+      "name": "link",
+      "label": "Link"
     }
   ],
   "example": {

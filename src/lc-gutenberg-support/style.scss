@@ -38,13 +38,67 @@
   /* Full width toggle */
   &.is-full a { display: flex; width: 100%; }
 
-  /* Default (Style 1) — applied with no extra class so the default
-     style works on the frontend where WordPress may omit the
-     `is-style-style-1` class. */
-  &.is-solid a { background: #111827; color: #ffffff; }
-  &.is-outline a { background: transparent; color: #111827; border: 2px solid #111827; }
+  /*
+   * Design System mapping via CSS variables
+   * Variants set these variables; states read them. Override in theme to match
+   * your design tokens (hover/active/disabled/focus), e.g.:
+   * .lc-button--primary { --lc-btn-bg: #e4002b; --lc-btn-fg:#fff; --lc-btn-hover-bg:#c30024; }
+   */
+  &.is-solid a {
+    background: var(--lc-btn-bg, #111827);
+    color: var(--lc-btn-fg, #ffffff);
+    border: var(--lc-btn-border, none);
+  }
+  &.is-outline a {
+    background: var(--lc-btn-outline-bg, transparent);
+    color: var(--lc-btn-outline-fg, var(--lc-btn-bg, #111827));
+    border: 2px solid var(--lc-btn-outline-border, var(--lc-btn-bg, #111827));
+  }
 
-  /* Variants + outline/solid */
+  a:hover { background: var(--lc-btn-hover-bg, inherit); color: var(--lc-btn-hover-fg, inherit); }
+  a:active { background: var(--lc-btn-active-bg, inherit); color: var(--lc-btn-active-fg, inherit); }
+
+  &.is-disabled a,
+  a[aria-disabled="true"] {
+    pointer-events: none;
+    opacity: .6;
+    transform: none;
+  }
+
+  /* Variants assign variables; defaults provided for immediate use */
+  &.lc-button--primary {
+    --lc-btn-bg: var(--lc-btn-primary-bg, #111827);
+    --lc-btn-fg: var(--lc-btn-primary-fg, #ffffff);
+    --lc-btn-hover-bg: var(--lc-btn-primary-hover-bg, #0f172a);
+    --lc-btn-hover-fg: var(--lc-btn-primary-hover-fg, #ffffff);
+    --lc-btn-active-bg: var(--lc-btn-primary-active-bg, #111827);
+    --lc-btn-active-fg: var(--lc-btn-primary-active-fg, #ffffff);
+  }
+
+  &.lc-button--secondary {
+    --lc-btn-bg: var(--lc-btn-secondary-bg, #2563eb);
+    --lc-btn-fg: var(--lc-btn-secondary-fg, #ffffff);
+    --lc-btn-hover-bg: var(--lc-btn-secondary-hover-bg, #1d4ed8);
+    --lc-btn-hover-fg: var(--lc-btn-secondary-hover-fg, #ffffff);
+    --lc-btn-active-bg: var(--lc-btn-secondary-active-bg, #1e40af);
+    --lc-btn-active-fg: var(--lc-btn-secondary-active-fg, #ffffff);
+  }
+
+  &.lc-button--tertiary {
+    --lc-btn-bg: var(--lc-btn-tertiary-bg, #10b981);
+    --lc-btn-fg: var(--lc-btn-tertiary-fg, #083c2c);
+    --lc-btn-hover-bg: var(--lc-btn-tertiary-hover-bg, #0ea271);
+    --lc-btn-hover-fg: var(--lc-btn-tertiary-hover-fg, #083c2c);
+    --lc-btn-active-bg: var(--lc-btn-tertiary-active-bg, #0a7f59);
+    --lc-btn-active-fg: var(--lc-btn-tertiary-active-fg, #083c2c);
+  }
+
+  /* Link variant (text button) ignores outline/solid */
+  &.lc-button--link {
+    --lc-btn-link-fg: var(--lc-btn-link-fg, #2563eb);
+    a { background: transparent !important; border: 0 !important; color: var(--lc-btn-link-fg); text-decoration: underline; }
+    a:hover { text-decoration-thickness: 2px; }
+  }
 
   &.lc-button--style-2 {
     &.is-solid a { background: #2563eb; color: #ffffff; }
@@ -62,30 +116,14 @@
    This ensures the visual presets work whether the code uses an attribute
    or the editor's block style UI. */
 
-/* For completeness, still honor explicit `is-style-style-1` classes
-   even though Style 1 is now the base. */
-.is-style-style-1 .lc-button,
-.lc-button.is-style-style-1 { /* same element or ancestor */
-  &.is-solid a { background: #111827; color: #ffffff; }
-  &.is-outline a { background: transparent; color: #111827; border: 2px solid #111827; }
-}
+/* Back-compat for earlier content: map old style classes to new variants */
+/* Map old preset classes to variant variables */
+.is-style-style-1 .lc-button, .lc-button.is-style-style-1 { --lc-btn-bg: var(--lc-btn-primary-bg, #111827); --lc-btn-fg: var(--lc-btn-primary-fg, #ffffff); --lc-btn-hover-bg: var(--lc-btn-primary-hover-bg, #0f172a); --lc-btn-hover-fg: var(--lc-btn-primary-hover-fg, #ffffff); --lc-btn-active-bg: var(--lc-btn-primary-active-bg, #111827); --lc-btn-active-fg: var(--lc-btn-primary-active-fg, #ffffff); }
+.is-style-style-2 .lc-button, .lc-button.is-style-style-2 { --lc-btn-bg: var(--lc-btn-secondary-bg, #2563eb); --lc-btn-fg: var(--lc-btn-secondary-fg, #ffffff); --lc-btn-hover-bg: var(--lc-btn-secondary-hover-bg, #1d4ed8); --lc-btn-hover-fg: var(--lc-btn-secondary-hover-fg, #ffffff); --lc-btn-active-bg: var(--lc-btn-secondary-active-bg, #1e40af); --lc-btn-active-fg: var(--lc-btn-secondary-active-fg, #ffffff); }
+.is-style-style-3 .lc-button, .lc-button.is-style-style-3 { --lc-btn-bg: var(--lc-btn-tertiary-bg, #10b981); --lc-btn-fg: var(--lc-btn-tertiary-fg, #083c2c); --lc-btn-hover-bg: var(--lc-btn-tertiary-hover-bg, #0ea271); --lc-btn-hover-fg: var(--lc-btn-tertiary-hover-fg, #083c2c); --lc-btn-active-bg: var(--lc-btn-tertiary-active-bg, #0a7f59); --lc-btn-active-fg: var(--lc-btn-tertiary-active-fg, #083c2c); }
 
-.is-style-style-2 .lc-button {
-  &.is-solid a { background: #2563eb; color: #ffffff; }
-  &.is-outline a { background: transparent; color: #2563eb; border: 2px solid #2563eb; }
-}
-
-.lc-button.is-style-style-2 {
-  &.is-solid a { background: #2563eb; color: #ffffff; }
-  &.is-outline a { background: transparent; color: #2563eb; border: 2px solid #2563eb; }
-}
-
-.is-style-style-3 .lc-button {
-  &.is-solid a { background: #10b981; color: #083c2c; }
-  &.is-outline a { background: transparent; color: #10b981; border: 2px solid #10b981; }
-}
-
-.lc-button.is-style-style-3 {
-  &.is-solid a { background: #10b981; color: #083c2c; }
-  &.is-outline a { background: transparent; color: #10b981; border: 2px solid #10b981; }
-}
+/* WP Block Style classes for new variants */
+.is-style-primary .lc-button, .lc-button.is-style-primary { --lc-btn-bg: var(--lc-btn-primary-bg, #111827); --lc-btn-fg: var(--lc-btn-primary-fg, #ffffff); --lc-btn-hover-bg: var(--lc-btn-primary-hover-bg, #0f172a); --lc-btn-hover-fg: var(--lc-btn-primary-hover-fg, #ffffff); --lc-btn-active-bg: var(--lc-btn-primary-active-bg, #111827); --lc-btn-active-fg: var(--lc-btn-primary-active-fg, #ffffff); }
+.is-style-secondary .lc-button, .lc-button.is-style-secondary { --lc-btn-bg: var(--lc-btn-secondary-bg, #2563eb); --lc-btn-fg: var(--lc-btn-secondary-fg, #ffffff); --lc-btn-hover-bg: var(--lc-btn-secondary-hover-bg, #1d4ed8); --lc-btn-hover-fg: var(--lc-btn-secondary-hover-fg, #ffffff); --lc-btn-active-bg: var(--lc-btn-secondary-active-bg, #1e40af); --lc-btn-active-fg: var(--lc-btn-secondary-active-fg, #ffffff); }
+.is-style-tertiary .lc-button, .lc-button.is-style-tertiary { --lc-btn-bg: var(--lc-btn-tertiary-bg, #10b981); --lc-btn-fg: var(--lc-btn-tertiary-fg, #083c2c); --lc-btn-hover-bg: var(--lc-btn-tertiary-hover-bg, #0ea271); --lc-btn-hover-fg: var(--lc-btn-tertiary-hover-fg, #083c2c); --lc-btn-active-bg: var(--lc-btn-tertiary-active-bg, #0a7f59); --lc-btn-active-fg: var(--lc-btn-tertiary-active-fg, #083c2c); }
+.is-style-link .lc-button, .lc-button.is-style-link { a { background: transparent !important; border: 0 !important; color: var(--lc-btn-link-fg, #2563eb); text-decoration: underline; } }

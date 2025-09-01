@@ -59,7 +59,7 @@ return array(
 			),
 			'styleVariant' => array(
 				'type' => 'string',
-				'default' => 'style-1'
+				'default' => 'primary'
 			),
 			'isFullWidth' => array(
 				'type' => 'boolean',
@@ -73,6 +73,10 @@ return array(
 				'type' => 'string',
 				'default' => 'md'
 			),
+			'isDisabled' => array(
+				'type' => 'boolean',
+				'default' => false
+			),
 			'icon' => array(
 				'type' => 'string',
 				'default' => 'none'
@@ -84,17 +88,21 @@ return array(
 		),
 		'styles' => array(
 			array(
-				'name' => 'style-1',
-				'label' => 'Style 1',
+				'name' => 'primary',
+				'label' => 'Primary',
 				'isDefault' => true
 			),
 			array(
-				'name' => 'style-2',
-				'label' => 'Style 2'
+				'name' => 'secondary',
+				'label' => 'Secondary'
 			),
 			array(
-				'name' => 'style-3',
-				'label' => 'Style 3'
+				'name' => 'tertiary',
+				'label' => 'Tertiary'
+			),
+			array(
+				'name' => 'link',
+				'label' => 'Link'
 			)
 		),
 		'example' => array(

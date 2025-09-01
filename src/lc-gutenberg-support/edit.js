@@ -40,8 +40,16 @@ export default function Edit( { attributes, setAttributes } ) {
 	useEffect( () => {
 		const match = className?.match( /is-style-(style-[^\s]+)/ );
 		const selected = match?.[ 1 ];
-		if ( selected && selected !== styleVariant ) {
-			setAttributes( { styleVariant: selected } );
+		// Migrate old style names to new DS names
+		const migrate = ( val ) => {
+			if ( val === 'style-1' ) return 'primary';
+			if ( val === 'style-2' ) return 'secondary';
+			if ( val === 'style-3' ) return 'tertiary';
+			return val;
+		};
+		const newVal = selected ? migrate( selected ) : undefined;
+		if ( newVal && newVal !== styleVariant ) {
+			setAttributes( { styleVariant: newVal } );
 		}
 	}, [ className ] );
 
@@ -94,6 +102,18 @@ export default function Edit( { attributes, setAttributes } ) {
 					/>
 
 					<SelectControl
+						label={ __( 'Appearance', 'limecuda' ) }
+						value={ styleVariant }
+						options={ [
+							{ label: __( 'Primary', 'limecuda' ), value: 'primary' },
+							{ label: __( 'Secondary', 'limecuda' ), value: 'secondary' },
+							{ label: __( 'Tertiary', 'limecuda' ), value: 'tertiary' },
+							{ label: __( 'Link', 'limecuda' ), value: 'link' },
+						] }
+						onChange={ ( val ) => setAttributes( { styleVariant: val } ) }
+					/>
+
+					<SelectControl
 						label={ __( 'Size', 'limecuda' ) }
 						value={ size }
 						options={ [
@@ -129,6 +149,12 @@ export default function Edit( { attributes, setAttributes } ) {
 						label={ __( 'Outline style', 'limecuda' ) }
 						checked={ isOutline }
 						onChange={ ( v ) => setAttributes( { isOutline: v } ) }
+					/>
+
+					<ToggleControl
+						label={ __( 'Disabled', 'limecuda' ) }
+						checked={ attributes.isDisabled }
+						onChange={ ( v ) => setAttributes( { isDisabled: v } ) }
 					/>
 				</PanelBody>
 
