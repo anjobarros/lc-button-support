@@ -89,12 +89,12 @@ return array(
 				'label' => 'Secondary'
 			),
 			array(
-				'name' => 'tertiary',
-				'label' => 'Tertiary'
+				'name' => 'outline',
+				'label' => 'Outline'
 			),
 			array(
-				'name' => 'link',
-				'label' => 'Link'
+				'name' => 'information',
+				'label' => 'Information'
 			)
 		),
 		'example' => array(

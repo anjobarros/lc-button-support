@@ -86,12 +86,12 @@
       "label": "Secondary"
     },
     {
-      "name": "tertiary",
-      "label": "Tertiary"
+      "name": "outline",
+      "label": "Outline"
     },
     {
-      "name": "link",
-      "label": "Link"
+      "name": "information",
+      "label": "Information"
     }
   ],
   "example": {

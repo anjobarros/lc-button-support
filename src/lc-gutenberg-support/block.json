@@ -71,8 +71,8 @@
 	"styles": [
 		{ "name": "primary", "label": "Primary", "isDefault": true },
 		{ "name": "secondary", "label": "Secondary" },
-		{ "name": "tertiary", "label": "Tertiary" },
-		{ "name": "link", "label": "Link" }
+		{ "name": "outline", "label": "Outline" },
+		{ "name": "information", "label": "Information" }
 	],
 	"example": {
 		"attributes": {

@@ -33,18 +33,24 @@ export default function Edit( { attributes, setAttributes } ) {
 
 	// Keep our `styleVariant` attribute in sync with the selected block style.
 	useEffect( () => {
-		const match = className?.match( /is-style-(style-[^\s]+)/ );
-		const selected = match?.[ 1 ];
-		// Migrate old style names to new DS names
+		if ( ! className ) return;
+		// Capture either legacy style-N or new named styles
+		const m = className.match( /is-style-([\w-]+)/ );
+		const raw = m?.[1];
+		if ( ! raw ) return;
 		const migrate = ( val ) => {
+			// legacy
 			if ( val === 'style-1' ) return 'primary';
 			if ( val === 'style-2' ) return 'secondary';
 			if ( val === 'style-3' ) return 'tertiary';
+			// previously used names
+			if ( val === 'link' ) return 'outline'; // map old to new if needed
+			// allow new names directly
 			return val;
 		};
-		const newVal = selected ? migrate( selected ) : undefined;
-		if ( newVal && newVal !== styleVariant ) {
-			setAttributes( { styleVariant: newVal } );
+		const next = migrate( raw );
+		if ( next && next !== styleVariant ) {
+			setAttributes( { styleVariant: next } );
 		}
 	}, [ className ] );
 
