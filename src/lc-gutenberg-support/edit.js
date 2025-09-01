@@ -13,8 +13,7 @@ import {
     SelectControl
 } from '@wordpress/components';
 
-export default function Edit( props ) {
-	const { attributes, setAttributes, className } = props;
+export default function Edit( { attributes, setAttributes } ) {
 	const {
 		text,
 		url,
