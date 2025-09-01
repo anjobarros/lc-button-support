@@ -1,0 +1,76 @@
+/* Front-end + editor shared styles */
+.lc-button {
+  a {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    border-radius: .5rem;
+    padding: .75rem 1.25rem;
+    font-weight: 600;
+    line-height: 1;
+    transition: transform .12s ease, box-shadow .12s ease;
+
+    &:hover { transform: translateY(-1px); }
+    &:active { transform: translateY(0); }
+  }
+
+  /* Sizes */
+  &.lc-button--sm a { padding: .5rem .9rem; font-size: .9rem; }
+  &.lc-button--md a { padding: .75rem 1.25rem; font-size: 1rem; }
+  &.lc-button--lg a { padding: 1rem 1.5rem; font-size: 1.1rem; }
+
+  /* Full width toggle */
+  &.is-full a { display: flex; width: 100%; }
+
+  /* Default (Style 1) — applied with no extra class so the default
+     style works on the frontend where WordPress may omit the
+     `is-style-style-1` class. */
+  &.is-solid a { background: #111827; color: #ffffff; }
+  &.is-outline a { background: transparent; color: #111827; border: 2px solid #111827; }
+
+  /* Variants + outline/solid */
+
+  &.lc-button--style-2 {
+    &.is-solid a { background: #2563eb; color: #ffffff; }
+    &.is-outline a { background: transparent; color: #2563eb; border: 2px solid #2563eb; }
+  }
+
+  &.lc-button--style-3 {
+    &.is-solid a { background: #10b981; color: #083c2c; }
+    &.is-outline a { background: transparent; color: #10b981; border: 2px solid #10b981; }
+  }
+}
+
+/* Also support WordPress block style presets which add an `is-style-{name}`
+   class on the block wrapper rather than toggling an internal attribute.
+   This ensures the visual presets work whether the code uses an attribute
+   or the editor's block style UI. */
+
+/* For completeness, still honor explicit `is-style-style-1` classes
+   even though Style 1 is now the base. */
+.is-style-style-1 .lc-button,
+.lc-button.is-style-style-1 { /* same element or ancestor */
+  &.is-solid a { background: #111827; color: #ffffff; }
+  &.is-outline a { background: transparent; color: #111827; border: 2px solid #111827; }
+}
+
+.is-style-style-2 .lc-button {
+  &.is-solid a { background: #2563eb; color: #ffffff; }
+  &.is-outline a { background: transparent; color: #2563eb; border: 2px solid #2563eb; }
+}
+
+.lc-button.is-style-style-2 {
+  &.is-solid a { background: #2563eb; color: #ffffff; }
+  &.is-outline a { background: transparent; color: #2563eb; border: 2px solid #2563eb; }
+}
+
+.is-style-style-3 .lc-button {
+  &.is-solid a { background: #10b981; color: #083c2c; }
+  &.is-outline a { background: transparent; color: #10b981; border: 2px solid #10b981; }
+}
+
+.lc-button.is-style-style-3 {
+  &.is-solid a { background: #10b981; color: #083c2c; }
+  &.is-outline a { background: transparent; color: #10b981; border: 2px solid #10b981; }
+}

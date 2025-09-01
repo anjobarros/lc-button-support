@@ -1,0 +1,81 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 3,
+	"name": "limecuda/button",
+	"version": "1.0.0",
+	"title": "LC Button",
+	"category": "design",
+	"icon": "button",
+	"description": "An opinionated LimeCuda button block with locked styling and style presets.",
+	"keywords": ["button", "cta", "link"],
+	"supports": {
+		"html": false,
+		"align": ["wide", "full"],
+		"className": true,
+		"customClassName": true,
+		"typography": false,
+		"spacing": false,
+		"color": {
+			"background": false,
+			"text": false,
+			"gradients": false,
+			"link": false
+		},
+		"shadow": false,
+		"border": false
+	},
+	"attributes": {
+		"text": {
+			"type": "string",
+			"source": "html",
+			"selector": "a",
+			"default": "Click Me"
+		},
+		"url": {
+			"type": "string",
+			"default": ""
+		},
+		"opensInNewTab": {
+			"type": "boolean",
+			"default": false
+		},
+		"relNoFollow": {
+			"type": "boolean",
+			"default": false
+		},
+		"relSponsored": {
+			"type": "boolean",
+			"default": false
+		},
+		"styleVariant": {
+			"type": "string",
+			"default": "style-1"
+		},
+		"isFullWidth": {
+			"type": "boolean",
+			"default": false
+		},
+		"isOutline": {
+			"type": "boolean",
+			"default": false
+		},
+		"size": {
+			"type": "string",
+			"default": "md"
+		}
+	},
+	"styles": [
+		{ "name": "style-1", "label": "Style 1", "isDefault": true },
+		{ "name": "style-2", "label": "Style 2" },
+		{ "name": "style-3", "label": "Style 3" }
+	],
+	"example": {
+		"attributes": {
+			"text": "Get Started",
+			"styleVariant": "style-2"
+		}
+	},
+	"editorScript": "file:./index.js",
+	"editorStyle": "file:./index.css",
+	"style": "file:./style-index.css"
+}
