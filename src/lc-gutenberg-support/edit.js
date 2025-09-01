@@ -108,17 +108,7 @@ export default function Edit( props ) {
                         onChange={ ( val ) => setAttributes( { size: val } ) }
                     />
 
-                    { styleVariant === 'primary' && (
-                        <SelectControl
-                            label={ __( 'Primary Options', 'limecuda' ) }
-                            value={ primaryColor }
-                            options={ [
-                                { label: __( 'Red', 'limecuda' ), value: 'red' },
-                                { label: __( 'Blue', 'limecuda' ), value: 'blue' },
-                            ] }
-                            onChange={ ( val ) => setAttributes( { primaryColor: val } ) }
-                        />
-                    ) }
+                    { /* Additional basic settings above */ }
 
                     
                     
@@ -142,8 +132,21 @@ export default function Edit( props ) {
 					/>
 				</PanelBody>
 
-                
-			</InspectorControls>
+                { styleVariant === 'primary' && (
+                    <PanelBody title={ __( 'Primary Options', 'limecuda' ) } initialOpen={ false }>
+                        <SelectControl
+                            label={ __( 'Color', 'limecuda' ) }
+                            value={ primaryColor }
+                            options={ [
+                                { label: __( 'Red', 'limecuda' ), value: 'red' },
+                                { label: __( 'Blue', 'limecuda' ), value: 'blue' },
+                            ] }
+                            onChange={ ( val ) => setAttributes( { primaryColor: val } ) }
+                        />
+                    </PanelBody>
+                ) }
+
+            </InspectorControls>
 
             <div { ...blockProps }>
                 <RichText
