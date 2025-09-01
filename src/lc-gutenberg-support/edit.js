@@ -28,28 +28,23 @@ export default function Edit( props ) {
         primaryColor,
     } = attributes;
 
-	// Keep our `styleVariant` attribute in sync with the selected block style.
-	useEffect( () => {
-		if ( ! className ) return;
-		// Capture either legacy style-N or new named styles
-		const m = className.match( /is-style-([\w-]+)/ );
-		const raw = m?.[1];
-		if ( ! raw ) return;
-		const migrate = ( val ) => {
-			// legacy
-			if ( val === 'style-1' ) return 'primary';
-			if ( val === 'style-2' ) return 'secondary';
-			if ( val === 'style-3' ) return 'tertiary';
-			// previously used names
-			if ( val === 'link' ) return 'outline'; // map old to new if needed
-			// allow new names directly
-			return val;
-		};
-		const next = migrate( raw );
-		if ( next && next !== styleVariant ) {
-			setAttributes( { styleVariant: next } );
-		}
-	}, [ className ] );
+    // Keep our `styleVariant` in sync with the Styles panel.
+    // If no is-style-* class is present, assume default 'primary'.
+    useEffect( () => {
+        const m = className?.match( /is-style-([\w-]+)/ );
+        const raw = m?.[ 1 ];
+        const migrate = ( val ) => {
+            if ( val === 'style-1' ) return 'primary';
+            if ( val === 'style-2' ) return 'secondary';
+            if ( val === 'style-3' ) return 'tertiary';
+            if ( val === 'link' ) return 'outline';
+            return val;
+        };
+        const next = raw ? migrate( raw ) : 'primary';
+        if ( next && next !== styleVariant ) {
+            setAttributes( { styleVariant: next } );
+        }
+    }, [ className ] );
 
     const blockProps = useBlockProps( {
         className: [
