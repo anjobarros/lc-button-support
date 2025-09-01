@@ -28,10 +28,21 @@ export default function Edit( props ) {
         primaryColor,
     } = attributes;
 
+    const blockProps = useBlockProps( {
+        className: [
+            'lc-button',
+            `lc-button--${ size }`,
+            styleVariant ? `lc-button--${ styleVariant }` : '',
+            styleVariant === 'primary' && primaryColor ? `lc-button--primary-${ primaryColor }` : '',
+            isOutline ? 'is-outline' : 'is-solid',
+            isFullWidth ? 'is-full' : ''
+        ].filter( Boolean ).join( ' ' ),
+    } );
+
     // Keep our `styleVariant` in sync with the Styles panel.
-    // If no is-style-* class is present, assume default 'primary'.
+    // Detect from the computed wrapper classes (which include is-style-*).
     useEffect( () => {
-        const m = className?.match( /is-style-([\w-]+)/ );
+        const m = blockProps?.className?.match( /is-style-([\w-]+)/ );
         const raw = m?.[ 1 ];
         const migrate = ( val ) => {
             if ( val === 'style-1' ) return 'primary';
@@ -44,18 +55,7 @@ export default function Edit( props ) {
         if ( next && next !== styleVariant ) {
             setAttributes( { styleVariant: next } );
         }
-    }, [ className ] );
-
-    const blockProps = useBlockProps( {
-        className: [
-            'lc-button',
-            `lc-button--${ size }`,
-            styleVariant ? `lc-button--${ styleVariant }` : '',
-            styleVariant === 'primary' && primaryColor ? `lc-button--primary-${ primaryColor }` : '',
-            isOutline ? 'is-outline' : 'is-solid',
-            isFullWidth ? 'is-full' : ''
-        ].filter( Boolean ).join( ' ' ),
-    } );
+    }, [ blockProps?.className ] );
 
 	const rel = [
 		opensInNewTab ? 'noopener' : null,
