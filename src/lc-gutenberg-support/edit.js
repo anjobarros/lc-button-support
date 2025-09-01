@@ -28,7 +28,8 @@ export default function Edit( props ) {
         primaryColor,
     } = attributes;
 
-    // Derive current style from wrapper classes or attribute, fallback to 'primary'.
+    // Derive current style strictly from the Styles panel (wrapper classes).
+    // If no is-style-* class is present, treat as the default: 'primary'.
     const migrate = ( val ) => {
         if ( val === 'style-1' ) return 'primary';
         if ( val === 'style-2' ) return 'secondary';
@@ -37,7 +38,7 @@ export default function Edit( props ) {
         return val;
     };
     const classStyle = className?.match( /is-style-([\w-]+)/ )?.[ 1 ] || null;
-    const currentStyle = migrate( classStyle || styleVariant || 'primary' );
+    const currentStyle = migrate( classStyle || 'primary' );
 
     const blockProps = useBlockProps( {
         className: [
