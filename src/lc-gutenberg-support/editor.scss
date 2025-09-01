@@ -3,3 +3,15 @@
   outline: 2px solid currentColor;
   outline-offset: 2px;
 }
+
+/* Icon picker UI */
+.lc-icon-picker__content { width: 320px; }
+.lc-icon-picker__grid {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 8px;
+  padding: 8px 0;
+}
+.lc-icon-picker__item { height: 36px; width: 36px; display: inline-flex; align-items: center; justify-content: center; }
+.lc-icon-picker__item svg { width: 20px; height: 20px; }
+.lc-icon-picker__row { display: flex; align-items: center; gap: 8px; }
