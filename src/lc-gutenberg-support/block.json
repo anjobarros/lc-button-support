@@ -74,12 +74,12 @@
 		{ "name": "outline", "label": "Outline" },
 		{ "name": "information", "label": "Information" }
 	],
-	"example": {
-		"attributes": {
-			"text": "Get Started",
-			"styleVariant": "style-2"
-		}
-	},
+  "example": {
+    "attributes": {
+      "text": "Get Started",
+      "styleVariant": "primary"
+    }
+  },
 	"editorScript": "file:./index.js",
 	"editorStyle": "file:./index.css",
 	"style": "file:./style-index.css"

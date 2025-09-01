@@ -100,7 +100,7 @@ return array(
 		'example' => array(
 			'attributes' => array(
 				'text' => 'Get Started',
-				'styleVariant' => 'style-2'
+				'styleVariant' => 'primary'
 			)
 		),
 		'editorScript' => 'file:./index.js',
