@@ -13,7 +13,8 @@ import {
     SelectControl
 } from '@wordpress/components';
 
-export default function Edit( { attributes, setAttributes } ) {
+export default function Edit( props ) {
+	const { attributes, setAttributes, className } = props;
 	const {
 		text,
 		url,
@@ -22,15 +23,10 @@ export default function Edit( { attributes, setAttributes } ) {
 		relSponsored,
 		isFullWidth,
 		isOutline,
-        size,
-        styleVariant,
-        primaryColor,
-		/**
-		 * WordPress injects `className` by default (e.g. `is-style-style-2`).
-		 * We don't declare it in attributes but we can still read it here.
-		 */
-		className,
-	} = attributes;
+	        size,
+	        styleVariant,
+	        primaryColor,
+		} = attributes;
 
 	// Keep our `styleVariant` attribute in sync with the selected block style.
 	useEffect( () => {
@@ -60,6 +56,7 @@ export default function Edit( { attributes, setAttributes } ) {
 			'lc-button',
 			`lc-button--${ size }`,
 			styleVariant ? `lc-button--${ styleVariant }` : '',
+			styleVariant === 'primary' && primaryColor ? `lc-button--primary-${ primaryColor }` : '',
 			isOutline ? 'is-outline' : 'is-solid',
 			isFullWidth ? 'is-full' : ''
 		].filter( Boolean ).join( ' ' ),
