@@ -59,23 +59,15 @@
 			"type": "boolean",
 			"default": false
 		},
-		"size": {
-			"type": "string",
-			"default": "md"
-		},
-		"isDisabled": {
-			"type": "boolean",
-			"default": false
-		},
-		"icon": {
-			"type": "string",
-			"default": "none"
-		},
-		"iconPosition": {
-			"type": "string",
-			"default": "right"
-		}
-	},
+        "size": {
+            "type": "string",
+            "default": "md"
+        },
+        "isDisabled": {
+            "type": "boolean",
+            "default": false
+        }
+    },
 	"styles": [
 		{ "name": "primary", "label": "Primary", "isDefault": true },
 		{ "name": "secondary", "label": "Secondary" },

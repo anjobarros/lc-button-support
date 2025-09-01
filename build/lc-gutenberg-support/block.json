@@ -73,14 +73,6 @@
     "isDisabled": {
       "type": "boolean",
       "default": false
-    },
-    "icon": {
-      "type": "string",
-      "default": "none"
-    },
-    "iconPosition": {
-      "type": "string",
-      "default": "right"
     }
   },
   "styles": [

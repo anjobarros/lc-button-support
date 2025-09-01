@@ -7,8 +7,6 @@ import {
 	URLInput
 } from '@wordpress/block-editor';
 import { useEffect } from '@wordpress/element';
-import IconPicker from './icon-picker';
-import { renderIcon } from './icons';
 import {
     PanelBody,
     ToggleControl,
@@ -24,10 +22,8 @@ export default function Edit( { attributes, setAttributes } ) {
 		relSponsored,
 		isFullWidth,
 		isOutline,
-		size,
-		icon,
-		iconPosition,
-		styleVariant,
+        size,
+        styleVariant,
 		/**
 		 * WordPress injects `className` by default (e.g. `is-style-style-2`).
 		 * We don't declare it in attributes but we can still read it here.
@@ -112,21 +108,7 @@ export default function Edit( { attributes, setAttributes } ) {
 						] }
 						onChange={ ( val ) => setAttributes( { size: val } ) }
 					/>
-
-
-					<IconPicker value={ icon } onChange={ ( val ) => setAttributes( { icon: val } ) } />
-
-					{ icon !== 'none' && (
-						<SelectControl
-							label={ __( 'Icon position', 'limecuda' ) }
-							value={ iconPosition }
-							options={ [
-								{ label: __( 'Left', 'limecuda' ), value: 'left' },
-								{ label: __( 'Right', 'limecuda' ), value: 'right' },
-							] }
-							onChange={ ( val ) => setAttributes( { iconPosition: val } ) }
-						/>
-					) }
+                    
 
 					<ToggleControl
 						label={ __( 'Full width', 'limecuda' ) }
@@ -150,20 +132,18 @@ export default function Edit( { attributes, setAttributes } ) {
                 
 			</InspectorControls>
 
-			<div { ...blockProps }>
-				<a href={ url || undefined } rel={ rel } target={ opensInNewTab ? '_blank' : undefined }>
-					{ icon !== 'none' && iconPosition === 'left' && renderIcon( icon ) }
-					<RichText
-						tagName="span"
-						className="lc-button__label"
-						placeholder={ __( 'Button text…', 'limecuda' ) }
-						value={ text }
-						onChange={ ( val ) => setAttributes( { text: val } ) }
-						allowedFormats={ [] }
-					/>
-					{ icon !== 'none' && iconPosition === 'right' && renderIcon( icon ) }
-				</a>
-			</div>
+            <div { ...blockProps }>
+                <RichText
+                    tagName="a"
+                    placeholder={ __( 'Button text…', 'limecuda' ) }
+                    value={ text }
+                    onChange={ ( val ) => setAttributes( { text: val } ) }
+                    allowedFormats={ [] }
+                    href={ url || undefined }
+                    rel={ rel }
+                    target={ opensInNewTab ? '_blank' : undefined }
+                />
+            </div>
 		</>
 	);
 }

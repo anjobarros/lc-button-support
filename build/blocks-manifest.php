@@ -76,14 +76,6 @@ return array(
 			'isDisabled' => array(
 				'type' => 'boolean',
 				'default' => false
-			),
-			'icon' => array(
-				'type' => 'string',
-				'default' => 'none'
-			),
-			'iconPosition' => array(
-				'type' => 'string',
-				'default' => 'right'
 			)
 		),
 		'styles' => array(
