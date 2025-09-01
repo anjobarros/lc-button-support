@@ -1,6 +1,6 @@
 === LC Gutenberg Support ===
 Contributors:      LimeCuda
-Tags:              block, gutenberg, button, styles
+Tags:              block, gutenberg, button, styles, cta
 Tested up to:      6.7
 Stable tag:        0.1.0
 License:           GPL-2.0-or-later
@@ -14,10 +14,10 @@ Adds an LC Button block (`limecuda/button`) with locked styling and a few safe o
 
 Highlights:
 
-* Simple options: Size (sm/md/lg), Outline vs Solid, Full width.
-* Style presets: Style 1 (default), Style 2, Style 3.
-* Link controls: URL, open in new tab, rel=nofollow / rel=sponsored.
-* Frontend parity: the chosen style in the editor matches what you see on the site.
+* Simple options: Size (sm/md/lg), Outline vs Solid, Full width
+* Style presets: Style 1 (default), Style 2, Style 3
+* Link controls: URL, open in new tab, rel=nofollow / rel=sponsored
+* Editor ↔ Frontend parity: your selected style persists on save and matches the site
 
 == Installation ==
 
@@ -40,16 +40,21 @@ Requirements: WordPress 6.7+, PHP 7.4+.
 1. In the editor, insert “LC Button”.
 2. Enter the button text and URL.
 3. In the sidebar:
-   * Styles: choose Style 1, 2, or 3. Your choice persists on save.
-   * Size: Small, Medium, Large.
-   * Full width: make the button span its container.
-   * Outline style: toggle between outline and solid.
-   * Link options: New tab, rel=nofollow, rel=sponsored.
+   - Styles: choose Style 1, 2, or 3 (persists on save)
+   - Size: Small, Medium, Large
+   - Full width: make the button span its container
+   - Outline style: toggle between outline and solid
+   - Link options: New tab, rel=nofollow, rel=sponsored
 
 Tips:
 
-* Style 1 is the default and is applied even if WordPress doesn’t add a style class.
-* Changing the Style preset updates the saved markup so the frontend always matches the editor.
+* Style 1 is the default and applied even if WordPress doesn’t add a style class
+* The chosen Style adds a class to the wrapper (e.g. `lc-button--style-2`) so the frontend always matches the editor
+
+== Blocks ==
+
+=== limecuda/button ===
+LC Button provides a consistent, theme-agnostic call‑to‑action with size, outline, and style presets.
 
 == Development ==
 
@@ -70,7 +75,13 @@ That should now be fixed. The selected style is saved and reflected on the front
 
 = Can I add new style presets? =
 
-Yes. Add a new style to `src/lc-gutenberg-support/style.scss` and register a style in `src/lc-gutenberg-support/block.json` under `styles`. Rebuild with `npm run build`.
+Yes. Add a new style to `src/lc-gutenberg-support/style.scss` and register a style in `src/lc-gutenberg-support/block.json` under `"styles"`. Rebuild with `npm run build`.
+
+= Can I override colors in my theme? =
+
+Yes. Target the wrapper classes in your theme stylesheet, for example:
+
+`.lc-button.lc-button--style-2.is-solid a { background: var(--brand, #2563eb); }`
 
 == Screenshots ==
 
@@ -80,4 +91,8 @@ Yes. Add a new style to `src/lc-gutenberg-support/style.scss` and register a sty
 == Changelog ==
 
 = 0.1.0 =
-* Initial release of LC Button block.
+* Initial release of LC Button block
+
+== Support ==
+
+Open an issue on GitHub: https://github.com/anjobarros/lc-button-support/issues
