@@ -154,3 +154,11 @@ function limecuda_lc_button_render_fix( $block_content, $block ) {
     return $block_content;
 }
 add_filter( 'render_block', 'limecuda_lc_button_render_fix', 10, 2 );
+
+/**
+ * Ensure Dashicons are available in the block editor so icon preview works.
+ */
+function limecuda_lc_button_enqueue_editor_assets() {
+    wp_enqueue_style( 'dashicons' );
+}
+add_action( 'enqueue_block_editor_assets', 'limecuda_lc_button_enqueue_editor_assets' );
