@@ -49,6 +49,17 @@ $lc-radius-shape: 4px;
   /* Full width toggle retained */
   &.is-full a { display: flex; width: 100%; }
 
+  /* Label and icon layout */
+  &__label { display: inline-block; }
+  &__icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    line-height: 1;
+  }
+  &__icon--left { margin-right: 5px; }
+  &__icon--right { margin-left: 5px; }
+
 
   &--primary{
     &-red{

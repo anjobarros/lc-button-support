@@ -35,7 +35,7 @@
     "text": {
       "type": "string",
       "source": "html",
-      "selector": "a",
+      "selector": "a .lc-button__label",
       "default": "Click Me"
     },
     "url": {
@@ -77,6 +77,14 @@
     "primaryColor": {
       "type": "string",
       "default": "red"
+    },
+    "showInfoIcon": {
+      "type": "boolean",
+      "default": false
+    },
+    "showCaret": {
+      "type": "boolean",
+      "default": false
     }
   },
   "styles": [
