@@ -38,7 +38,7 @@ return array(
 			'text' => array(
 				'type' => 'string',
 				'source' => 'html',
-				'selector' => 'a',
+				'selector' => 'a .lc-button__label',
 				'default' => 'Click Me'
 			),
 			'url' => array(
@@ -80,6 +80,14 @@ return array(
 			'primaryColor' => array(
 				'type' => 'string',
 				'default' => 'red'
+			),
+			'iconType' => array(
+				'type' => 'string',
+				'default' => ''
+			),
+			'iconPosition' => array(
+				'type' => 'string',
+				'default' => 'right'
 			)
 		),
 		'styles' => array(

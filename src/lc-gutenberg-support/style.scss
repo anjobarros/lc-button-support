@@ -36,7 +36,7 @@ $lc-radius-shape: 4px;
     text-decoration: none;
     font-size: 14px;
     line-height: 1em;
-    padding: 13px $lc-padding-regular;
+    padding: calc(13px - 1px) $lc-padding-regular;
     border-radius: $lc-radius-shape;
     border-color: currentColor;
     border-style: solid;
@@ -44,6 +44,11 @@ $lc-radius-shape: 4px;
     background: $lc-lightDark-color;
     color: $lc-white-color;
     font-weight: bold;
+  }
+  &.has-icon{
+    a{
+      padding: calc(13px - 3px) $lc-padding-regular;
+    }
   }
 
   /* Full width toggle retained */
@@ -54,17 +59,17 @@ $lc-radius-shape: 4px;
   &__content {
     display: inline-flex;
     align-items: center;
+    gap: 8px;
   }
   &__icon {
     display: inline-flex;
     align-items: center;
     justify-content: center;
     line-height: 1;
-    svg { fill: currentColor; }
+    width: 24px;
+    aspect-ratio: 4/3;
+    svg { fill: currentColor; width: 100%; position: absolute; }
   }
-  &__icon--left { margin-left: 8px; }
-  &__icon--right { margin-right: 8px; }
-
 
   &--primary{
     &-red{
