@@ -10,15 +10,13 @@ import { useEffect } from '@wordpress/element';
 import {
     PanelBody,
     ToggleControl,
-    SelectControl,
-    TextControl
+    SelectControl
 } from '@wordpress/components';
 
 export default function Edit( props ) {
     const { attributes, setAttributes } = props;
     const {
         text,
-        textPlain,
         url,
 		opensInNewTab,
 		relNoFollow,
@@ -28,8 +26,6 @@ export default function Edit( props ) {
         size,
         styleVariant,
         primaryColor,
-        iconName,
-        iconPosition,
     } = attributes;
 
     // Derive current style strictly from the Styles panel (wrapper classes).
@@ -54,17 +50,12 @@ export default function Edit( props ) {
     const currentStyle = migrate( classStyle || styleVariant || 'primary' );
 
     // Merge our classes with base block props
-    const hasIcon = !!iconName;
-    const iconSlug = ( iconName || '' ).replace( /^dashicons-/, '' );
     const mergedClassName = [
         baseBlockProps.className,
         'lc-button',
         `lc-button--${ size }`,
         currentStyle ? `lc-button--${ currentStyle }` : '',
         currentStyle === 'primary' && primaryColor ? `lc-button--primary-${ primaryColor }` : '',
-        hasIcon ? 'has-icon' : '',
-        hasIcon ? `has-icon-${ iconPosition || 'right' }` : '',
-        hasIcon ? `has-icon-${ iconSlug }` : '',
         // Only keep supported modifiers; remove legacy is-solid/is-outline flags
         isFullWidth ? 'is-full' : ''
     ].filter( Boolean ).join( ' ' );
@@ -160,50 +151,23 @@ export default function Edit( props ) {
 					/>
 				</PanelBody>
 
-                <PanelBody title={ __( 'Icon', 'limecuda' ) } initialOpen={ false }>
-                    <TextControl
-                        label={ __( 'Custom dashicon slug or class', 'limecuda' ) }
-                        help={ __( 'Examples: external, arrow-right, dashicons-download', 'limecuda' ) }
-                        value={ iconName }
-                        onChange={ ( val ) => setAttributes( { iconName: ( val || '' ).replace( /^dashicons-/, '' ) } ) }
-                    />
-                    { ( iconName && iconName !== '' ) && (
-                        <SelectControl
-                            label={ __( 'Icon Position', 'limecuda' ) }
-                            value={ iconPosition || 'right' }
-                            options={ [
-                                { label: __( 'Left', 'limecuda' ), value: 'left' },
-                                { label: __( 'Right', 'limecuda' ), value: 'right' },
-                            ] }
-                            onChange={ ( val ) => setAttributes( { iconPosition: val } ) }
-                        />
-                    ) }
-                </PanelBody>
+                {/* Icon feature removed */}
 
             </InspectorControls>
 
             <div { ...blockProps }>
-                <a
+                <RichText
+                    tagName="a"
+                    placeholder={ __( 'Button text…', 'limecuda' ) }
+                    value={ text }
+                    onChange={ ( val ) => setAttributes( { text: val } ) }
+                    allowedFormats={ [] }
                     href={ attributes.isDisabled ? undefined : ( url || undefined ) }
                     rel={ rel }
                     target={ attributes.isDisabled ? undefined : ( opensInNewTab ? '_blank' : undefined ) }
                     aria-disabled={ attributes.isDisabled ? 'true' : undefined }
                     tabIndex={ attributes.isDisabled ? -1 : undefined }
-                >
-                    { ( hasIcon && ( iconPosition || 'right' ) === 'left' ) && (
-                        <span className={ `dashicons dashicons-${ iconSlug }` } aria-hidden="true" />
-                    ) }
-                    <RichText
-                        tagName="span"
-                        placeholder={ __( 'Button text…', 'limecuda' ) }
-                        value={ ( typeof textPlain === 'string' && textPlain !== '' ) ? textPlain : text }
-                        onChange={ ( val ) => setAttributes( { textPlain: val, text: val } ) }
-                        allowedFormats={ [] }
-                    />
-                    { ( hasIcon && ( iconPosition || 'right' ) === 'right' ) && (
-                        <span className={ `dashicons dashicons-${ iconSlug }` } aria-hidden="true" />
-                    ) }
-                </a>
+                />
             </div>
 		</>
 	);

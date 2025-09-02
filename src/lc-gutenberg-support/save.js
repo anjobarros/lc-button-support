@@ -3,7 +3,6 @@ import { useBlockProps, RichText } from '@wordpress/block-editor';
 export default function save( { attributes } ) {
     const {
         text,
-        textPlain,
         url,
         opensInNewTab,
         relNoFollow,
@@ -13,9 +12,7 @@ export default function save( { attributes } ) {
         size,
         styleVariant,
         primaryColor,
-        isDisabled,
-        iconName,
-        iconPosition
+        isDisabled
     } = attributes;
 
     // Normalize styleVariant to the supported set.
@@ -40,7 +37,6 @@ export default function save( { attributes } ) {
             `lc-button--${ size }`,
             variant ? `lc-button--${ variant }` : '',
             variant === 'primary' && primaryColor ? `lc-button--primary-${ primaryColor }` : '',
-            // icon classes added after we compute slug below
             // Remove legacy state flags; rely on lc-button--outline etc.
             isFullWidth ? 'is-full' : ''
         ].filter( Boolean ).join( ' ' ),
@@ -52,30 +48,17 @@ export default function save( { attributes } ) {
 		relSponsored ? 'sponsored' : null
 	].filter( Boolean ).join( ' ' ) || undefined;
 
-    const iconSlug = ( iconName || '' ).replace( /^dashicons-/, '' );
-    const hasIcon = !!iconSlug;
-    // Rebuild className to include icon classes if present
-    if ( hasIcon ) {
-        blockProps.className += ` has-icon has-icon-${ iconPosition || 'right' } has-icon-${ iconSlug }`;
-    }
-
     return (
         <div { ...blockProps }>
-            <a
+            <RichText.Content
+                tagName="a"
+                value={ text }
                 href={ isDisabled ? undefined : ( url || undefined ) }
                 rel={ rel }
                 target={ isDisabled ? undefined : ( opensInNewTab ? '_blank' : undefined ) }
                 aria-disabled={ isDisabled ? 'true' : undefined }
                 tabIndex={ isDisabled ? -1 : undefined }
-            >
-                { ( hasIcon && ( iconPosition || 'right' ) === 'left' ) && (
-                    <span className={ `dashicons dashicons-${ iconSlug }` } aria-hidden="true" />
-                ) }
-                { ( typeof textPlain === 'string' && textPlain !== '' ) ? textPlain : text }
-                { ( hasIcon && ( iconPosition || 'right' ) === 'right' ) && (
-                    <span className={ `dashicons dashicons-${ iconSlug }` } aria-hidden="true" />
-                ) }
-            </a>
+            />
         </div>
     );
 }

@@ -71,10 +71,7 @@ function limecuda_lc_button_render_fix( $block_content, $block ) {
         return $block_content;
     }
 
-    // Ensure dashicons font is available on the front end when this block renders.
-    if ( function_exists( 'wp_enqueue_style' ) ) {
-        wp_enqueue_style( 'dashicons' );
-    }
+    // Icon feature removed; no extra styles to enqueue here.
 
     // Determine selected style from wrapper class in the rendered content.
     $style = 'primary';
@@ -155,10 +152,4 @@ function limecuda_lc_button_render_fix( $block_content, $block ) {
 }
 add_filter( 'render_block', 'limecuda_lc_button_render_fix', 10, 2 );
 
-/**
- * Ensure Dashicons are available in the block editor so icon preview works.
- */
-function limecuda_lc_button_enqueue_editor_assets() {
-    wp_enqueue_style( 'dashicons' );
-}
-add_action( 'enqueue_block_editor_assets', 'limecuda_lc_button_enqueue_editor_assets' );
+// Icon feature removed; no editor assets to enqueue.

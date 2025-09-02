@@ -49,57 +49,6 @@ $lc-radius-shape: 4px;
   /* Full width toggle retained */
   &.is-full a { display: flex; width: 100%; }
 
-  /* Icon support using Dashicons font via pseudo elements */
-  &.has-icon {
-    a::before,
-    a::after {
-      font-family: dashicons;
-      font-style: normal;
-      font-weight: 400;
-      speak: never;
-      display: inline-block;
-      line-height: 1;
-    }
-    &.has-icon-left {
-      a::before { margin-right: 8px; }
-      /* Prevent the unused side from showing */
-      a::after { content: none; }
-    }
-    &.has-icon-right {
-      a::after { margin-left: 8px; }
-      a::before { content: none; }
-    }
-
-    // If real <span class="dashicons ..."> is used instead of pseudo
-    &.has-icon-left {
-      a .dashicons { margin-right: 8px; }
-    }
-    &.has-icon-right {
-      a .dashicons { margin-left: 8px; }
-    }
-
-    /* Icon maps (subset) */
-    &.has-icon-arrow-right {
-      &.has-icon-left a::before,
-      &.has-icon-right a::after { content: "\f139"; }
-    }
-    &.has-icon-arrow-right-alt {
-      &.has-icon-left a::before,
-      &.has-icon-right a::after { content: "\f344"; }
-    }
-    &.has-icon-arrow-right-alt2 {
-      &.has-icon-left a::before,
-      &.has-icon-right a::after { content: "\f345"; }
-    }
-    &.has-icon-external {
-      &.has-icon-left a::before,
-      &.has-icon-right a::after { content: "\f504"; }
-    }
-    &.has-icon-download {
-      &.has-icon-left a::before,
-      &.has-icon-right a::after { content: "\f316"; }
-    }
-  }
 
   &--primary{
     &-red{

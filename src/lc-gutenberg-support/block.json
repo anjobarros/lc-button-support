@@ -25,18 +25,12 @@
 		"border": false
 	},
 	"attributes": {
-		"text": {
-			"type": "string",
-			"source": "html",
-			"selector": "a",
-			"default": "Click Me"
-		},
-		"textPlain": {
-			"type": "string",
-			"source": "text",
-			"selector": "a",
-			"default": "Click Me"
-		},
+        "text": {
+            "type": "string",
+            "source": "html",
+            "selector": "a",
+            "default": "Click Me"
+        },
 		"url": {
 			"type": "string",
 			"default": ""
@@ -76,14 +70,6 @@
         "primaryColor": {
             "type": "string",
             "default": "red"
-        },
-        "iconName": {
-            "type": "string",
-            "default": ""
-        },
-        "iconPosition": {
-            "type": "string",
-            "default": "right"
         }
     },
 	"styles": [
