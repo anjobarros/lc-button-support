@@ -77,6 +77,14 @@
     "primaryColor": {
       "type": "string",
       "default": "red"
+    },
+    "iconName": {
+      "type": "string",
+      "default": ""
+    },
+    "iconPosition": {
+      "type": "string",
+      "default": "right"
     }
   },
   "styles": [

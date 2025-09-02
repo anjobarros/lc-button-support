@@ -1,18 +1,20 @@
 import { useBlockProps, RichText } from '@wordpress/block-editor';
 
 export default function save( { attributes } ) {
-	const {
-		text,
-		url,
-		opensInNewTab,
-		relNoFollow,
-		relSponsored,
-		isFullWidth,
-		isOutline,
+    const {
+        text,
+        url,
+        opensInNewTab,
+        relNoFollow,
+        relSponsored,
+        isFullWidth,
+        isOutline,
         size,
         styleVariant,
         primaryColor,
-        isDisabled
+        isDisabled,
+        iconName,
+        iconPosition
     } = attributes;
 
     // Normalize styleVariant to the supported set.
@@ -31,12 +33,16 @@ export default function save( { attributes } ) {
     };
     const variant = normalizeVariant( styleVariant );
 
+    const hasIcon = !!iconName;
     const blockProps = useBlockProps.save( {
         className: [
             'lc-button',
             `lc-button--${ size }`,
             variant ? `lc-button--${ variant }` : '',
             variant === 'primary' && primaryColor ? `lc-button--primary-${ primaryColor }` : '',
+            hasIcon ? 'has-icon' : '',
+            hasIcon ? `has-icon-${ iconPosition || 'right' }` : '',
+            hasIcon ? `has-icon-${ iconName }` : '',
             // Remove legacy state flags; rely on lc-button--outline etc.
             isFullWidth ? 'is-full' : ''
         ].filter( Boolean ).join( ' ' ),

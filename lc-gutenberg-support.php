@@ -71,6 +71,11 @@ function limecuda_lc_button_render_fix( $block_content, $block ) {
         return $block_content;
     }
 
+    // Ensure dashicons font is available on the front end when this block renders.
+    if ( function_exists( 'wp_enqueue_style' ) ) {
+        wp_enqueue_style( 'dashicons' );
+    }
+
     // Determine selected style from wrapper class in the rendered content.
     $style = 'primary';
     if ( preg_match( '/is-style-([a-z0-9_-]+)/i', $block_content, $m ) ) {

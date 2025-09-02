@@ -26,6 +26,8 @@ export default function Edit( props ) {
         size,
         styleVariant,
         primaryColor,
+        iconName,
+        iconPosition,
     } = attributes;
 
     // Derive current style strictly from the Styles panel (wrapper classes).
@@ -50,12 +52,16 @@ export default function Edit( props ) {
     const currentStyle = migrate( classStyle || styleVariant || 'primary' );
 
     // Merge our classes with base block props
+    const hasIcon = !!iconName;
     const mergedClassName = [
         baseBlockProps.className,
         'lc-button',
         `lc-button--${ size }`,
         currentStyle ? `lc-button--${ currentStyle }` : '',
         currentStyle === 'primary' && primaryColor ? `lc-button--primary-${ primaryColor }` : '',
+        hasIcon ? 'has-icon' : '',
+        hasIcon ? `has-icon-${ iconPosition || 'right' }` : '',
+        hasIcon ? `has-icon-${ iconName }` : '',
         // Only keep supported modifiers; remove legacy is-solid/is-outline flags
         isFullWidth ? 'is-full' : ''
     ].filter( Boolean ).join( ' ' );
@@ -150,6 +156,33 @@ export default function Edit( props ) {
 						onChange={ ( v ) => setAttributes( { isDisabled: v } ) }
 					/>
 				</PanelBody>
+
+                <PanelBody title={ __( 'Icon', 'limecuda' ) } initialOpen={ false }>
+                    <SelectControl
+                        label={ __( 'Dashicon', 'limecuda' ) }
+                        value={ iconName }
+                        options={ [
+                            { label: __( 'None', 'limecuda' ), value: '' },
+                            { label: 'Arrow Right', value: 'arrow-right' },
+                            { label: 'Arrow Right Alt', value: 'arrow-right-alt' },
+                            { label: 'Arrow Right Alt 2', value: 'arrow-right-alt2' },
+                            { label: 'External', value: 'external' },
+                            { label: 'Download', value: 'download' },
+                        ] }
+                        onChange={ ( val ) => setAttributes( { iconName: val } ) }
+                    />
+                    { ( iconName && iconName !== '' ) && (
+                        <SelectControl
+                            label={ __( 'Icon Position', 'limecuda' ) }
+                            value={ iconPosition || 'right' }
+                            options={ [
+                                { label: __( 'Left', 'limecuda' ), value: 'left' },
+                                { label: __( 'Right', 'limecuda' ), value: 'right' },
+                            ] }
+                            onChange={ ( val ) => setAttributes( { iconPosition: val } ) }
+                        />
+                    ) }
+                </PanelBody>
 
             </InspectorControls>
 
