@@ -10,13 +10,15 @@ import { useEffect } from '@wordpress/element';
 import {
     PanelBody,
     ToggleControl,
-    SelectControl
+    SelectControl,
+    TextControl
 } from '@wordpress/components';
 
 export default function Edit( props ) {
     const { attributes, setAttributes } = props;
     const {
         text,
+        textPlain,
         url,
 		opensInNewTab,
 		relNoFollow,
@@ -53,6 +55,7 @@ export default function Edit( props ) {
 
     // Merge our classes with base block props
     const hasIcon = !!iconName;
+    const iconSlug = ( iconName || '' ).replace( /^dashicons-/, '' );
     const mergedClassName = [
         baseBlockProps.className,
         'lc-button',
@@ -61,7 +64,7 @@ export default function Edit( props ) {
         currentStyle === 'primary' && primaryColor ? `lc-button--primary-${ primaryColor }` : '',
         hasIcon ? 'has-icon' : '',
         hasIcon ? `has-icon-${ iconPosition || 'right' }` : '',
-        hasIcon ? `has-icon-${ iconName }` : '',
+        hasIcon ? `has-icon-${ iconSlug }` : '',
         // Only keep supported modifiers; remove legacy is-solid/is-outline flags
         isFullWidth ? 'is-full' : ''
     ].filter( Boolean ).join( ' ' );
@@ -160,7 +163,7 @@ export default function Edit( props ) {
                 <PanelBody title={ __( 'Icon', 'limecuda' ) } initialOpen={ false }>
                     <SelectControl
                         label={ __( 'Dashicon', 'limecuda' ) }
-                        value={ iconName }
+                        value={ iconSlug }
                         options={ [
                             { label: __( 'None', 'limecuda' ), value: '' },
                             { label: 'Arrow Right', value: 'arrow-right' },
@@ -170,6 +173,12 @@ export default function Edit( props ) {
                             { label: 'Download', value: 'download' },
                         ] }
                         onChange={ ( val ) => setAttributes( { iconName: val } ) }
+                    />
+                    <TextControl
+                        label={ __( 'Custom dashicon slug or class', 'limecuda' ) }
+                        help={ __( 'Examples: external, arrow-right, dashicons-download', 'limecuda' ) }
+                        value={ iconName }
+                        onChange={ ( val ) => setAttributes( { iconName: ( val || '' ).replace( /^dashicons-/, '' ) } ) }
                     />
                     { ( iconName && iconName !== '' ) && (
                         <SelectControl
@@ -187,18 +196,27 @@ export default function Edit( props ) {
             </InspectorControls>
 
             <div { ...blockProps }>
-                <RichText
-                    tagName="a"
-                    placeholder={ __( 'Button text…', 'limecuda' ) }
-                    value={ text }
-                    onChange={ ( val ) => setAttributes( { text: val } ) }
-                    allowedFormats={ [] }
+                <a
                     href={ attributes.isDisabled ? undefined : ( url || undefined ) }
                     rel={ rel }
                     target={ attributes.isDisabled ? undefined : ( opensInNewTab ? '_blank' : undefined ) }
                     aria-disabled={ attributes.isDisabled ? 'true' : undefined }
                     tabIndex={ attributes.isDisabled ? -1 : undefined }
-                />
+                >
+                    { ( hasIcon && ( iconPosition || 'right' ) === 'left' ) && (
+                        <span className={ `dashicons dashicons-${ iconSlug }` } aria-hidden="true" />
+                    ) }
+                    <RichText
+                        tagName="span"
+                        placeholder={ __( 'Button text…', 'limecuda' ) }
+                        value={ ( typeof textPlain === 'string' && textPlain !== '' ) ? textPlain : text }
+                        onChange={ ( val ) => setAttributes( { textPlain: val, text: val } ) }
+                        allowedFormats={ [] }
+                    />
+                    { ( hasIcon && ( iconPosition || 'right' ) === 'right' ) && (
+                        <span className={ `dashicons dashicons-${ iconSlug }` } aria-hidden="true" />
+                    ) }
+                </a>
             </div>
 		</>
 	);

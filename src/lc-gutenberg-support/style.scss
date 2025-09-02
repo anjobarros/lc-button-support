@@ -70,6 +70,14 @@ $lc-radius-shape: 4px;
       a::before { content: none; }
     }
 
+    // If real <span class="dashicons ..."> is used instead of pseudo
+    &.has-icon-left {
+      a .dashicons { margin-right: 8px; }
+    }
+    &.has-icon-right {
+      a .dashicons { margin-left: 8px; }
+    }
+
     /* Icon maps (subset) */
     &.has-icon-arrow-right {
       &.has-icon-left a::before,

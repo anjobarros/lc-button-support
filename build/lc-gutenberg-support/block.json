@@ -38,6 +38,12 @@
       "selector": "a",
       "default": "Click Me"
     },
+    "textPlain": {
+      "type": "string",
+      "source": "text",
+      "selector": "a",
+      "default": "Click Me"
+    },
     "url": {
       "type": "string",
       "default": ""
