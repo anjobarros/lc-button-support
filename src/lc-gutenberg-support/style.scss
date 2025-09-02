@@ -51,6 +51,10 @@ $lc-radius-shape: 4px;
 
   /* Label and icon layout */
   &__label { display: inline-block; }
+  &__content {
+    display: inline-flex;
+    align-items: center;
+  }
   &__icon {
     display: inline-flex;
     align-items: center;
@@ -58,8 +62,8 @@ $lc-radius-shape: 4px;
     line-height: 1;
     svg { fill: currentColor; }
   }
-  &__icon--left { margin-right: 5px; }
-  &__icon--right { margin-left: 5px; }
+  &__icon--left { margin-left: 8px; }
+  &__icon--right { margin-right: 8px; }
 
 
   &--primary{

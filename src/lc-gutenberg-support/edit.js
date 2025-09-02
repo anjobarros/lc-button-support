@@ -194,42 +194,44 @@ export default function Edit( props ) {
                     tabIndex={ attributes.isDisabled ? -1 : undefined }
                     onClick={ (e) => e.preventDefault() }
                 >
-                    { iconType === 'info' && iconPosition === 'left' && (
-                        <span className="lc-button__icon lc-button__icon--left" aria-hidden="true">
-                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="20" height="20">
-                                <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm-1-13h2v6h-2zm0 8h2v2h-2z" />
-                            </svg>
-                        </span>
-                    ) }
-                    { iconType === 'caret' && iconPosition === 'left' && (
-                        <span className="lc-button__icon lc-button__icon--left" aria-hidden="true">
-                            <svg width="16" height="16" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                                <path fillRule="evenodd" clipRule="evenodd" d="M19.88 5.94L22 8.06L12 18.06L2 8.06L4.12 5.94L12 13.82L19.88 5.94Z" />
-                            </svg>
-                        </span>
-                    ) }
-                    <RichText
-                        tagName="span"
-                        className="lc-button__label"
-                        placeholder={ __( 'Button text…', 'limecuda' ) }
-                        value={ text }
-                        onChange={ ( val ) => setAttributes( { text: val } ) }
-                        allowedFormats={ [] }
-                    />
-                    { iconType === 'info' && iconPosition === 'right' && (
-                        <span className="lc-button__icon lc-button__icon--right" aria-hidden="true">
-                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="20" height="20">
-                                <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm-1-13h2v6h-2zm0 8h2v2h-2z" />
-                            </svg>
-                        </span>
-                    ) }
-                    { iconType === 'caret' && iconPosition === 'right' && (
-                        <span className="lc-button__icon lc-button__icon--right" aria-hidden="true">
-                            <svg width="16" height="16" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                                <path fillRule="evenodd" clipRule="evenodd" d="M19.88 5.94L22 8.06L12 18.06L2 8.06L4.12 5.94L12 13.82L19.88 5.94Z" />
-                            </svg>
-                        </span>
-                    ) }
+                    <div className="lc-button__content">
+                        { iconType === 'info' && iconPosition === 'left' && (
+                            <span className="lc-button__icon lc-button__icon--left" aria-hidden="true">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="20" height="20">
+                                    <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm-1-13h2v6h-2zm0 8h2v2h-2z" />
+                                </svg>
+                            </span>
+                        ) }
+                        { iconType === 'caret' && iconPosition === 'left' && (
+                            <span className="lc-button__icon lc-button__icon--left" aria-hidden="true">
+                                <svg width="16" height="16" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                    <path fillRule="evenodd" clipRule="evenodd" d="M19.88 5.94L22 8.06L12 18.06L2 8.06L4.12 5.94L12 13.82L19.88 5.94Z" />
+                                </svg>
+                            </span>
+                        ) }
+                        <RichText
+                            tagName="span"
+                            className="lc-button__label"
+                            placeholder={ __( 'Button text…', 'limecuda' ) }
+                            value={ text }
+                            onChange={ ( val ) => setAttributes( { text: val } ) }
+                            allowedFormats={ [] }
+                        />
+                        { iconType === 'info' && iconPosition === 'right' && (
+                            <span className="lc-button__icon lc-button__icon--right" aria-hidden="true">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="20" height="20">
+                                    <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm-1-13h2v6h-2zm0 8h2v2h-2z" />
+                                </svg>
+                            </span>
+                        ) }
+                        { iconType === 'caret' && iconPosition === 'right' && (
+                            <span className="lc-button__icon lc-button__icon--right" aria-hidden="true">
+                                <svg width="16" height="16" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                    <path fillRule="evenodd" clipRule="evenodd" d="M19.88 5.94L22 8.06L12 18.06L2 8.06L4.12 5.94L12 13.82L19.88 5.94Z" />
+                                </svg>
+                            </span>
+                        ) }
+                    </div>
                 </a>
             </div>
 		</>
