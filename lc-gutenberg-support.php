@@ -2,7 +2,7 @@
 /**
  * Plugin Name:       LC Gutenberg Support
  * Description:       Example block scaffolded with Create Block tool.
- * Version:           0.1.0
+ * Version:           0.1.2
  * Requires at least: 6.7
  * Requires PHP:      7.4
  * Author:            The WordPress Contributors
