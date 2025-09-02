@@ -161,19 +161,6 @@ export default function Edit( props ) {
 				</PanelBody>
 
                 <PanelBody title={ __( 'Icon', 'limecuda' ) } initialOpen={ false }>
-                    <SelectControl
-                        label={ __( 'Dashicon', 'limecuda' ) }
-                        value={ iconSlug }
-                        options={ [
-                            { label: __( 'None', 'limecuda' ), value: '' },
-                            { label: 'Arrow Right', value: 'arrow-right' },
-                            { label: 'Arrow Right Alt', value: 'arrow-right-alt' },
-                            { label: 'Arrow Right Alt 2', value: 'arrow-right-alt2' },
-                            { label: 'External', value: 'external' },
-                            { label: 'Download', value: 'download' },
-                        ] }
-                        onChange={ ( val ) => setAttributes( { iconName: val } ) }
-                    />
                     <TextControl
                         label={ __( 'Custom dashicon slug or class', 'limecuda' ) }
                         help={ __( 'Examples: external, arrow-right, dashicons-download', 'limecuda' ) }
