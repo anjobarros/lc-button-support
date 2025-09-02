@@ -26,8 +26,8 @@ export default function Edit( props ) {
         size,
         styleVariant,
         primaryColor,
-        showInfoIcon,
-        showCaret,
+        iconType,
+        iconPosition,
     } = attributes;
 
     // Derive current style strictly from the Styles panel (wrapper classes).
@@ -153,17 +153,28 @@ export default function Edit( props ) {
 					/>
 				</PanelBody>
 
-                <PanelBody title={ __( 'Icons', 'limecuda' ) } initialOpen={ false }>
-                    <ToggleControl
-                        label={ __( 'Show Info icon (left)', 'limecuda' ) }
-                        checked={ !!showInfoIcon }
-                        onChange={ ( v ) => setAttributes( { showInfoIcon: !!v } ) }
+                <PanelBody title={ __( 'Icon', 'limecuda' ) } initialOpen={ false }>
+                    <SelectControl
+                        label={ __( 'Icon Type', 'limecuda' ) }
+                        value={ iconType || '' }
+                        options={ [
+                            { label: __( 'None', 'limecuda' ), value: '' },
+                            { label: __( 'Info', 'limecuda' ), value: 'info' },
+                            { label: __( 'Caret', 'limecuda' ), value: 'caret' },
+                        ] }
+                        onChange={ ( val ) => setAttributes( { iconType: val } ) }
                     />
-                    <ToggleControl
-                        label={ __( 'Show Caret (right)', 'limecuda' ) }
-                        checked={ !!showCaret }
-                        onChange={ ( v ) => setAttributes( { showCaret: !!v } ) }
-                    />
+                    { ( iconType && iconType !== '' ) && (
+                        <SelectControl
+                            label={ __( 'Icon Position', 'limecuda' ) }
+                            value={ iconPosition || 'right' }
+                            options={ [
+                                { label: __( 'Left', 'limecuda' ), value: 'left' },
+                                { label: __( 'Right', 'limecuda' ), value: 'right' },
+                            ] }
+                            onChange={ ( val ) => setAttributes( { iconPosition: val } ) }
+                        />
+                    ) }
                 </PanelBody>
 
                 {/* Icon feature removed */}
@@ -178,10 +189,17 @@ export default function Edit( props ) {
                     aria-disabled={ attributes.isDisabled ? 'true' : undefined }
                     tabIndex={ attributes.isDisabled ? -1 : undefined }
                 >
-                    { showInfoIcon && (
+                    { iconType === 'info' && iconPosition === 'left' && (
                         <span className="lc-button__icon lc-button__icon--left" aria-hidden="true">
                             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="20" height="20">
                                 <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm-1-13h2v6h-2zm0 8h2v2h-2z" />
+                            </svg>
+                        </span>
+                    ) }
+                    { iconType === 'caret' && iconPosition === 'left' && (
+                        <span className="lc-button__icon lc-button__icon--left" aria-hidden="true">
+                            <svg width="16" height="16" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                <path fillRule="evenodd" clipRule="evenodd" d="M19.88 5.94L22 8.06L12 18.06L2 8.06L4.12 5.94L12 13.82L19.88 5.94Z" />
                             </svg>
                         </span>
                     ) }
@@ -193,7 +211,14 @@ export default function Edit( props ) {
                         onChange={ ( val ) => setAttributes( { text: val } ) }
                         allowedFormats={ [] }
                     />
-                    { showCaret && (
+                    { iconType === 'info' && iconPosition === 'right' && (
+                        <span className="lc-button__icon lc-button__icon--right" aria-hidden="true">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="20" height="20">
+                                <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm-1-13h2v6h-2zm0 8h2v2h-2z" />
+                            </svg>
+                        </span>
+                    ) }
+                    { iconType === 'caret' && iconPosition === 'right' && (
                         <span className="lc-button__icon lc-button__icon--right" aria-hidden="true">
                             <svg width="16" height="16" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                                 <path fillRule="evenodd" clipRule="evenodd" d="M19.88 5.94L22 8.06L12 18.06L2 8.06L4.12 5.94L12 13.82L19.88 5.94Z" />

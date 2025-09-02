@@ -78,13 +78,13 @@
       "type": "string",
       "default": "red"
     },
-    "showInfoIcon": {
-      "type": "boolean",
-      "default": false
+    "iconType": {
+      "type": "string",
+      "default": ""
     },
-    "showCaret": {
-      "type": "boolean",
-      "default": false
+    "iconPosition": {
+      "type": "string",
+      "default": "right"
     }
   },
   "styles": [
