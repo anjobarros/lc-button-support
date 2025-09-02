@@ -10,7 +10,8 @@ import { useEffect } from '@wordpress/element';
 import {
     PanelBody,
     ToggleControl,
-    SelectControl
+    SelectControl,
+    TextControl
 } from '@wordpress/components';
 
 export default function Edit( props ) {
@@ -84,11 +85,14 @@ export default function Edit( props ) {
 
 			<InspectorControls>
 				<PanelBody title={ __( 'Button Settings', 'limecuda' ) } initialOpen={ true }>
-					<URLInput
-						value={ url }
-						onChange={ ( newUrl ) => setAttributes( { url: newUrl } ) }
-						label={ __( 'Link', 'limecuda' ) }
-					/>
+                    <TextControl
+                        type="url"
+                        label={ __( 'Link', 'limecuda' ) }
+                        value={ url }
+                        onChange={ ( newUrl ) => setAttributes( { url: newUrl } ) }
+                        placeholder="https://example.com"
+                        help={ __( 'Paste a URL. No embed preview is loaded.', 'limecuda' ) }
+                    />
 
 					<ToggleControl
 						label={ __( 'Open in new tab', 'limecuda' ) }
@@ -188,6 +192,7 @@ export default function Edit( props ) {
                     target={ attributes.isDisabled ? undefined : ( opensInNewTab ? '_blank' : undefined ) }
                     aria-disabled={ attributes.isDisabled ? 'true' : undefined }
                     tabIndex={ attributes.isDisabled ? -1 : undefined }
+                    onClick={ (e) => e.preventDefault() }
                 >
                     { iconType === 'info' && iconPosition === 'left' && (
                         <span className="lc-button__icon lc-button__icon--left" aria-hidden="true">
