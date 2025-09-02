@@ -47,18 +47,25 @@ export default function Edit( props ) {
         if ( val === 'tertiary' ) return 'information';
         return val;
     };
-    // Read current wrapper classes (includes is-style-*)
+    // Read current wrapper classes (includes is-style-*), and strip legacy has-icon*
     const baseBlockProps = useBlockProps();
-    const classStyle = baseBlockProps?.className?.match( /is-style-([\w-]+)/ )?.[ 1 ] || null;
+    const cleanedBaseClass = ( baseBlockProps?.className || '' )
+        .replace(/\bhas-icon(?:-(?:left|right))?\b/g, '')
+        .replace(/\s+/g, ' ')
+        .trim();
+    const classStyle = cleanedBaseClass?.match( /is-style-([\w-]+)/ )?.[ 1 ] || null;
     const currentStyle = migrate( classStyle || styleVariant || 'primary' );
 
     // Merge our classes with base block props
+    const hasIcon = !!iconType;
     const mergedClassName = [
-        baseBlockProps.className,
+        cleanedBaseClass,
         'lc-button',
         `lc-button--${ size }`,
         currentStyle ? `lc-button--${ currentStyle }` : '',
         currentStyle === 'primary' && primaryColor ? `lc-button--primary-${ primaryColor }` : '',
+        hasIcon ? 'has-icon' : '',
+        hasIcon ? `has-icon-${ iconPosition || 'right' }` : '',
         // Only keep supported modifiers; remove legacy is-solid/is-outline flags
         isFullWidth ? 'is-full' : ''
     ].filter( Boolean ).join( ' ' );

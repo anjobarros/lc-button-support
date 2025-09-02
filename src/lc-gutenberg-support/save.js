@@ -33,12 +33,15 @@ export default function save( { attributes } ) {
     };
     const variant = normalizeVariant( styleVariant );
 
+    const hasIcon = !!iconType;
     const blockProps = useBlockProps.save( {
         className: [
             'lc-button',
             `lc-button--${ size }`,
             variant ? `lc-button--${ variant }` : '',
             variant === 'primary' && primaryColor ? `lc-button--primary-${ primaryColor }` : '',
+            hasIcon ? 'has-icon' : '',
+            hasIcon ? `has-icon-${ iconPosition || 'right' }` : '',
             // Remove legacy state flags; rely on lc-button--outline etc.
             isFullWidth ? 'is-full' : ''
         ].filter( Boolean ).join( ' ' ),

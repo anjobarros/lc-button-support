@@ -102,6 +102,8 @@ function limecuda_lc_button_render_fix( $block_content, $block ) {
 
             // Remove any old variant classes first.
             $classes = preg_replace( '/\s+lc-button--(?:primary(?:-(?:red|blue))?|secondary|outline|information)\b/i', ' ', $classes );
+            // Also sanitize legacy icon classes; we re-append based on attributes.
+            $classes = preg_replace( '/\s+has-icon(?:-(?:left|right))?\b/i', ' ', $classes );
 
             // Append the correct variant class.
             $classes .= ' lc-button--' . $variant;
@@ -115,6 +117,14 @@ function limecuda_lc_button_render_fix( $block_content, $block ) {
                     $color = 'red';
                 }
                 $classes .= ' lc-button--primary-' . $color;
+            }
+
+            // Append icon classes if iconType is set.
+            $icon_type     = isset( $block['attrs']['iconType'] ) ? (string) $block['attrs']['iconType'] : '';
+            $icon_position = isset( $block['attrs']['iconPosition'] ) ? (string) $block['attrs']['iconPosition'] : 'right';
+            if ( in_array( $icon_type, array( 'info', 'caret' ), true ) ) {
+                $pos     = in_array( $icon_position, array( 'left', 'right' ), true ) ? $icon_position : 'right';
+                $classes .= ' has-icon has-icon-' . $pos;
             }
 
             // Normalize whitespace.
@@ -132,6 +142,7 @@ function limecuda_lc_button_render_fix( $block_content, $block ) {
         function ( $m ) use ( $variant, $block ) {
             $classes = ' ' . $m[2] . ' ';
             $classes = preg_replace( '/\s+lc-button--(?:primary(?:-(?:red|blue))?|secondary|outline|information)\b/i', ' ', $classes );
+            $classes = preg_replace( '/\s+has-icon(?:-(?:left|right))?\b/i', ' ', $classes );
             $classes .= ' lc-button--' . $variant;
             if ( 'primary' === $variant ) {
                 $color = isset( $block['attrs']['primaryColor'] ) && '' !== $block['attrs']['primaryColor']
@@ -141,6 +152,12 @@ function limecuda_lc_button_render_fix( $block_content, $block ) {
                     $color = 'red';
                 }
                 $classes .= ' lc-button--primary-' . $color;
+            }
+            $icon_type     = isset( $block['attrs']['iconType'] ) ? (string) $block['attrs']['iconType'] : '';
+            $icon_position = isset( $block['attrs']['iconPosition'] ) ? (string) $block['attrs']['iconPosition'] : 'right';
+            if ( in_array( $icon_type, array( 'info', 'caret' ), true ) ) {
+                $pos     = in_array( $icon_position, array( 'left', 'right' ), true ) ? $icon_position : 'right';
+                $classes .= ' has-icon has-icon-' . $pos;
             }
             $classes = trim( preg_replace( '/\s+/', ' ', $classes ) );
             return $m[1] . $classes . $m[3];
