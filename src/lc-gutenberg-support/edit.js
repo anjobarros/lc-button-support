@@ -34,32 +34,22 @@ export default function Edit( props ) {
     // Derive current style strictly from the Styles panel (wrapper classes).
     // If no is-style-* class is present, treat as the default: 'primary'.
     const migrate = ( val ) => {
-        // Normalize various style slugs (including legacy) to the 4 supported variants
+        // Only support the 4 variants used by this block
         if ( val === 'primary' ) return 'primary';
         if ( val === 'secondary' ) return 'secondary';
         if ( val === 'outline' ) return 'outline';
         if ( val === 'information' ) return 'information';
-        // Legacy mappings from prior style names
-        if ( val === 'style-1' ) return 'primary';
-        if ( val === 'style-2' ) return 'secondary';
-        if ( val === 'style-3' ) return 'information';
-        if ( val === 'link' ) return 'outline';
-        if ( val === 'tertiary' ) return 'information';
         return val;
     };
-    // Read current wrapper classes (includes is-style-*), and strip legacy has-icon*
+    // Read current wrapper classes (includes is-style-*)
     const baseBlockProps = useBlockProps();
-    const cleanedBaseClass = ( baseBlockProps?.className || '' )
-        .replace(/\bhas-icon(?:-(?:left|right))?\b/g, '')
-        .replace(/\s+/g, ' ')
-        .trim();
-    const classStyle = cleanedBaseClass?.match( /is-style-([\w-]+)/ )?.[ 1 ] || null;
+    const classStyle = baseBlockProps?.className?.match( /is-style-([\w-]+)/ )?.[ 1 ] || null;
     const currentStyle = migrate( classStyle || styleVariant || 'primary' );
 
     // Merge our classes with base block props
     const hasIcon = !!iconType;
     const mergedClassName = [
-        cleanedBaseClass,
+        baseBlockProps.className,
         'lc-button',
         `lc-button--${ size }`,
         currentStyle ? `lc-button--${ currentStyle }` : '',
