@@ -6,10 +6,10 @@ return array(
 		'apiVersion' => 3,
 		'name' => 'limecuda/button',
 		'version' => '1.0.0',
-		'title' => 'LC Button',
+		'title' => 'TF Button',
 		'category' => 'design',
 		'icon' => 'button',
-		'description' => 'An opinionated LimeCuda button block with locked styling and style presets.',
+		'description' => 'A Thermo Fisher brand‑compliant button with sizing and style presets.',
 		'keywords' => array(
 			'button',
 			'cta',
@@ -71,7 +71,7 @@ return array(
 			),
 			'size' => array(
 				'type' => 'string',
-				'default' => 'md'
+				'default' => 'rg'
 			),
 			'isDisabled' => array(
 				'type' => 'boolean',

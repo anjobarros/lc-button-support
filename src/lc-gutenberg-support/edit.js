@@ -15,21 +15,20 @@ import {
 } from '@wordpress/components';
 
 export default function Edit( props ) {
-    const { attributes, setAttributes } = props;
-    const {
-        text,
-        url,
+	const { attributes, setAttributes } = props;
+	const {
+		text,
+		url,
 		opensInNewTab,
 		relNoFollow,
 		relSponsored,
 		isFullWidth,
-        isOutline,
-        size,
-        styleVariant,
-        primaryColor,
-        iconType,
-        iconPosition,
-    } = attributes;
+		size,
+		styleVariant,
+		primaryColor,
+		iconType,
+		iconPosition,
+	} = attributes;
 
     // Derive current style strictly from the Styles panel (wrapper classes).
     // If no is-style-* class is present, treat as the default: 'primary'.
@@ -98,13 +97,13 @@ export default function Edit( props ) {
 					/>
 
 					<ToggleControl
-						label={ __( 'Rel: nofollow', 'limecuda' ) }
+						label={ __( 'Search engines should ignore this link (mark as nofollow)', 'limecuda' ) }
 						checked={ relNoFollow }
 						onChange={ ( v ) => setAttributes( { relNoFollow: v } ) }
 					/>
 
 					<ToggleControl
-						label={ __( 'Rel: sponsored', 'limecuda' ) }
+						label={ __( 'This is a sponsored link or advert (mark as sponsored)', 'limecuda' ) }
 						checked={ relSponsored }
 						onChange={ ( v ) => setAttributes( { relSponsored: v } ) }
 					/>
@@ -116,7 +115,7 @@ export default function Edit( props ) {
                         value={ size }
                         options={ [
                             { label: 'Small', value: 'sm' },
-                            { label: 'Medium', value: 'md' },
+                            { label: 'Regular', value: 'rg' },
                             { label: 'Large', value: 'lg' },
                         ] }
                         onChange={ ( val ) => setAttributes( { size: val } ) }
@@ -141,17 +140,7 @@ export default function Edit( props ) {
 						onChange={ ( v ) => setAttributes( { isFullWidth: v } ) }
 					/>
 
-					<ToggleControl
-						label={ __( 'Outline style', 'limecuda' ) }
-						checked={ isOutline }
-						onChange={ ( v ) => setAttributes( { isOutline: v } ) }
-					/>
 
-					<ToggleControl
-						label={ __( 'Disabled', 'limecuda' ) }
-						checked={ attributes.isDisabled }
-						onChange={ ( v ) => setAttributes( { isDisabled: v } ) }
-					/>
 				</PanelBody>
 
                 <PanelBody title={ __( 'Icon', 'limecuda' ) } initialOpen={ false }>

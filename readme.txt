@@ -2,7 +2,7 @@
 Contributors:      LimeCuda
 Tags:              block, gutenberg, button, styles, cta
 Tested up to:      6.7
-Stable tag:        0.1.3
+Stable tag:        0.1.4
 License:           GPL-2.0-or-later
 License URI:       https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -14,8 +14,8 @@ Adds an LC Button block (`limecuda/button`) with locked styling and a few safe o
 
 Highlights:
 
-* Simple options: Size (sm/md/lg), Outline vs Solid, Full width
-* Style presets: Style 1 (default), Style 2, Style 3
+* Simple options: Size (sm/rg/lg), Full width, optional icons
+* Styles: Primary (default), Secondary, Outline, Information
 * Link controls: URL, open in new tab, rel=nofollow / rel=sponsored
 * Editor ↔ Frontend parity: your selected style persists on save and matches the site
 
@@ -40,10 +40,9 @@ Requirements: WordPress 6.7+, PHP 7.4+.
 1. In the editor, insert “LC Button”.
 2. Enter the button text and URL.
 3. In the sidebar:
-   - Styles: choose Style 1, 2, or 3 (persists on save)
-   - Size: Small, Medium, Large
+   - Styles: Primary, Secondary, Outline, Information (via block Styles)
+   - Size: Small, Regular, Large (sm/rg/lg)
    - Full width: make the button span its container
-   - Outline style: toggle between outline and solid
    - Link options: New tab, rel=nofollow, rel=sponsored
 
 Tips:
@@ -89,6 +88,11 @@ Yes. Target the wrapper classes in your theme stylesheet, for example:
 2. Solid and outline variations on the frontend.
 
 == Changelog ==
+
+= 0.1.4 =
+* Default size changed to `rg` (was `md`); added CSS alias so old `lc-button--md` still looks correct
+* Removed Outline/Disabled toggles from the Inspector; choose Outline via Styles panel instead
+* Updated docs and fixed typos; refreshed build output
 
 = 0.1.0 =
 * Initial release of LC Button block

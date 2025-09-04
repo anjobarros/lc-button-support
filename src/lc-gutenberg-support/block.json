@@ -3,10 +3,10 @@
 	"apiVersion": 3,
 	"name": "limecuda/button",
 	"version": "1.0.0",
-	"title": "LC Button",
+	"title": "TF Button",
 	"category": "design",
 	"icon": "button",
-	"description": "An opinionated LimeCuda button block with locked styling and style presets.",
+    "description": "A Thermo Fisher brand‑compliant button with sizing and style presets.",
 	"keywords": ["button", "cta", "link"],
 	"supports": {
 		"html": false,
@@ -61,7 +61,7 @@
 		},
         "size": {
             "type": "string",
-            "default": "md"
+            "default": "rg"
         },
         "isDisabled": {
             "type": "boolean",

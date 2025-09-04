@@ -1,11 +1,12 @@
 <?php
 /**
- * Plugin Name:       LC Gutenberg Support
- * Description:       Example block scaffolded with Create Block tool.
- * Version:           0.1.3
+ * Plugin Name:       TF Gutenberg Support
+ * Description:       A Thermo FIsher brand-compliant button with sizung and style presets.
+ * Version:           0.1.4
  * Requires at least: 6.7
  * Requires PHP:      7.4
- * Author:            The WordPress Contributors
+ * Author:            Limecuda
+ * Author URI:        https://limecuda.com
  * License:           GPL-2.0-or-later
  * License URI:       https://www.gnu.org/licenses/gpl-2.0.html
  * Text Domain:       lc-gutenberg-support

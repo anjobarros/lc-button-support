@@ -26,6 +26,8 @@ $lc-padding-regular: 24px;
 // RADIUS
 $lc-radius-shape: 4px;
 
+$lc-font-size: 14px;
+
 
 
 .lc-button {
@@ -34,9 +36,8 @@ $lc-radius-shape: 4px;
     align-items: center;
     justify-content: center;
     text-decoration: none;
-    font-size: 14px;
+    font-size: $lc-font-size;
     line-height: 1em;
-    padding: calc(13px - 1px) $lc-padding-regular;
     border-radius: $lc-radius-shape;
     border-color: currentColor;
     border-style: solid;
@@ -45,9 +46,35 @@ $lc-radius-shape: 4px;
     color: $lc-white-color;
     font-weight: bold;
   }
-  &.has-icon{
+  &--rg, &--md{
     a{
-      padding: calc(13px - 3px) $lc-padding-regular;
+      padding: calc(((40px - $lc-font-size) / 2) - 1px) $lc-padding-regular;
+    }
+  }
+  &--sm{
+    a{
+      padding: calc(((32px - $lc-font-size) / 2) - 1px) 16px;
+    }
+  }
+  &--lg{
+    a{
+      padding: calc(((48px - $lc-font-size) / 2) - 1px) $lc-padding-regular;
+    }
+  }
+  // HAS ICON
+  &--rg.has-icon, &--md.has-icon{
+    a{
+      padding: calc(((40px - $lc-font-size) / 2) - 3px) $lc-padding-regular;
+    }
+  }
+  &--sm.has-icon{
+    a{
+      padding: calc(((32px - $lc-font-size) / 2) - 3px) 16px;
+    }
+  }
+  &--lg.has-icon{
+    a{
+      padding: calc(((48px - $lc-font-size) / 2) - 3px) $lc-padding-regular;
     }
   }
 
