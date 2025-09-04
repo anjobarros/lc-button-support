@@ -17,15 +17,8 @@ export default function save( { attributes } ) {
         iconPosition
     } = attributes;
 
-    // Normalize styleVariant to the supported set.
-    const normalizeVariant = (val) => {
-        if ( val === 'primary' ) return 'primary';
-        if ( val === 'secondary' ) return 'secondary';
-        if ( val === 'information' ) return 'information';
-        if ( val === 'outline' ) return 'outline';
-        return val;
-    };
-    const variant = normalizeVariant( styleVariant );
+    // Use the saved attribute (synced from block Style via editor) or fallback to 'primary'.
+    const variant = styleVariant || 'primary';
 
     const hasIcon = !!iconType;
     const blockProps = useBlockProps.save( {

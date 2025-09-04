@@ -30,20 +30,10 @@ export default function Edit( props ) {
 		iconPosition,
 	} = attributes;
 
-    // Derive current style strictly from the Styles panel (wrapper classes).
-    // If no is-style-* class is present, treat as the default: 'primary'.
-    const migrate = ( val ) => {
-        // Only support the 4 variants used by this block
-        if ( val === 'primary' ) return 'primary';
-        if ( val === 'secondary' ) return 'secondary';
-        if ( val === 'outline' ) return 'outline';
-        if ( val === 'information' ) return 'information';
-        return val;
-    };
-    // Read current wrapper classes (includes is-style-*)
+    // Resolve style from the selected block Style (is-style-*) or attribute, fallback to 'primary'.
     const baseBlockProps = useBlockProps();
     const classStyle = baseBlockProps?.className?.match( /is-style-([\w-]+)/ )?.[ 1 ] || null;
-    const currentStyle = migrate( classStyle || styleVariant || 'primary' );
+    const currentStyle = classStyle || styleVariant || 'primary';
 
     // Merge our classes with base block props
     const hasIcon = !!iconType;
